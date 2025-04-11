@@ -1,0 +1,17 @@
+.brands {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px;
+    background-color: rgb(23, 23, 23);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 2px;
+  }
+  
+  .brands span {
+    font-size: 30px;
+    font-weight: bold;
+    color:white;
+   
+  }
+  

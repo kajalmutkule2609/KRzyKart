@@ -39,73 +39,22 @@ public class EcomWebsite {
 		}
 				
 	}
-//	@EventListener(ApplicationReadyEvent.class)
-//    public void sendMail() {
-//        String otp = OTPGenerator.generateOTP(6);
-//        emailSender.sendEmail("kajalm2659@gmail.com", "Email Verification", "Your OTP is: " + otp);
-//    }
 
-}
-//int result=jdbcTemplate.update("insert into Registration values('0',?,?,?,?,?,?)",new PreparedStatementSetter() {
-//
-//	@Override
-//	public void setValues(PreparedStatement ps) throws SQLException {
-//		ps.setString(1, "abc");
-//		ps.setString(2, "abc@gmail.com");
-//		ps.setString(3, "8956862100");
-//		ps.setString(4, "pune");
-//		ps.setString(5, "ABC");
-//		ps.setString(6, "ABC");
-//	}
-//});
-/*
-do {
-System.out.println("\n---------------------------------------------------------------\n");
-System.out.print("\n0:EXIT");
-System.out.print("\n:1:MANAGE USER");
-System.out.print("\n2:MANAGE PRODUCTS");
-System.out.println("\n---------------------------------------------------------------\n");
-
-System.out.print("\nEnter Choice:");
-int choice=sc.nextInt();
-
-
-switch(choice) {
-case 0:
-	System.out.println("Termination !!!");
-	System.exit(0);
-	
-case 1:
-	sc.nextLine();
-	System.out.print("\nEnter Full Name:");
-	name = sc.nextLine();
-	System.out.print("\nEnter Email:");
-	email = sc.nextLine();
-	System.out.print("\nEnter Contact No:");
-	contact = sc.nextLine();
-	System.out.print("\nEnter AddressModel:");
-	addr = sc.nextLine();
-	System.out.print("\nEnter Password:");
-	pass = sc.nextLine();
-	System.out.print("\nConfirm Password:");
-	conPass = sc.nextLine();
-	UserModel model = new UserModel('0', name, email, contact, addr, pass, conPass);
-	EcomWebsite ecomWebsite = context.getBean(EcomWebsite.class);
-	ecomWebsite.registerUser(model);
-	break;
-default:
-	System.out.println("Wrong Choice Entered !!!");
 
 }
 
-}while(true);
-}
 
-private void registerUser(UserModel model) {
 
-	if (userService.registerNewUser(model)) {
-		System.out.println("User Registered is Successfully...");
-	} else {
-		System.out.println("Registration Failed!!!");
-	}
-*/
+
+
+
+
+
+
+
+
+//@EventListener(ApplicationReadyEvent.class)
+//public void sendMail() {
+//  String otp = OTPGenerator.generateOTP(6);
+//  emailSender.sendEmail("kajalm2659@gmail.com", "Email Verification", "Your OTP is: " + otp);
+//}

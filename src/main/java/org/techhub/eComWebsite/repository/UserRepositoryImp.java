@@ -22,14 +22,16 @@ public class UserRepositoryImp implements UserRepository{
 	private JdbcTemplate jdbcTemplate;
 	@Override
 	public boolean registerNewUser(UserModel model) {
-		int result=jdbcTemplate.update("Insert into User (fullName,email,contactNo,password) values(?,?,?,?)",new PreparedStatementSetter() {
+		int result=jdbcTemplate.update("Insert into User (fullName,email,contactNo,Role,password,address) values(?,?,?,?,?,?)",new PreparedStatementSetter() {
 
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setString(1, model.getFullName());
 				ps.setString(2, model.getEmail());
 				ps.setString(3, model.getContactNo());
-				ps.setString(4, model.getPassword());				
+				ps.setString(4, model.getRole());
+				ps.setString(5, model.getPassword());	
+				ps.setString(6, model.getAddress());
 			}
 			
 		});
@@ -48,6 +50,7 @@ public class UserRepositoryImp implements UserRepository{
 				model.setContactNo(rs.getString(4));
 				model.setRole(rs.getString(5));
 				model.setPassword(rs.getString(6));
+				model.setAddress(rs.getString(7));
 				return model;
 			}
 			
@@ -68,6 +71,7 @@ public class UserRepositoryImp implements UserRepository{
 				model.setContactNo(rs.getString(4));
 				model.setRole(rs.getString(5));
 				model.setPassword(rs.getString(6));
+				model.setAddress(rs.getString(7));
 				return model;
 			}
 			

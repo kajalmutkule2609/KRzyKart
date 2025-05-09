@@ -78,14 +78,19 @@ const ResetPassword = () => {
         }
         try {
             const response = await forgotPassword({ email, newPassword });
-            setSuccess("Password changed successfully.");
-            setError("");
+            if (response.data === "New password cannot be the same as the old password.") {
+                setError(response.data);
+                setSuccess("");
+            } else {
+                setSuccess(response.data);
+                setError("");
+            }
         } catch (error) {
             setError("Error changing password. Please try again.");
             setSuccess("");
         }
     };
-
+    
     return (
         <div className="reset-container">
             <div className="reset-box">

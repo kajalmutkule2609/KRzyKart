@@ -5,6 +5,7 @@ import { registerUser, generateOtp, verifyOtp } from "../Apis/userApi.api";
 const SignUpForSeller = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
+    userId: "",
     fullName: "",
     email: "",
     contactNo: "",
@@ -51,7 +52,7 @@ const SignUpForSeller = () => {
           ...formData,
           role: "seller", // Ensure role is "seller"
         });
- 
+
         console.log(response.data);
         setRegistrationStatus("Registration Successful!");
         setSuccess("");
@@ -59,7 +60,10 @@ const SignUpForSeller = () => {
         const users = JSON.parse(localStorage.getItem("users")) || [];
         users.push(formData);
         localStorage.setItem("users", JSON.stringify(users));
-        localStorage.setItem("userData", JSON.stringify(formData));
+        const userData = JSON.parse(localStorage.getItem("userData"));
+        const email = userData?.email;
+        console.log("Email from localStorage:", email);
+
         setTimeout(() => {
           navigate("/login");
         }, 2000);
@@ -144,7 +148,7 @@ const SignUpForSeller = () => {
           <div>
             <label className="lableForSCode">Security Code</label>
             <input
-              type="text"
+              type="Password"
               className="sCode"
               placeholder="Enter Security Code Here"
               value={securityCode}
@@ -288,10 +292,10 @@ const SignUpForSeller = () => {
               </span>
             </p>
           </form>
-         )}
-  </div>
-</div>
-);
+        )}
+      </div>
+    </div>
+  );
 
-}  
+}
 export default SignUpForSeller;

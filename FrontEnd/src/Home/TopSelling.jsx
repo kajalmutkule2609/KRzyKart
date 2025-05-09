@@ -19,7 +19,7 @@ const TopSelling = () => {
       <div className="styles-grid">
         {topSelling.map((item, index) => (
           <div key={index} className="style-card">
-            <img src={item.image} alt={item.name} className="product-image" />
+            <img src={item.image} alt={item.name} className="product-images" />
             <h3>{item.name}</h3>
             <p className="price">
               {item.oldPrice && <span className="old-price">{item.oldPrice}</span>}

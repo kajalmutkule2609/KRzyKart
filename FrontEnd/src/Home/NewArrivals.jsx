@@ -14,12 +14,12 @@ const newArrivals = [
 
 const NewArrivals = () => {
   return (
-    <section className="new-arrivals">
+    <section className="new-arrivals1">
       <h2 className="text-black">NEW ARRIVALS</h2>
-      <div className="arrivals-grid">
+      <div className="arrivals-grid1">
         {newArrivals.map((item, index) => (
           <div key={index} className="item">
-            <img src={item.image} alt={item.name} className="product-image" />
+            <img src={item.image} alt={item.name} className="product-images" />
             <h3>{item.name}</h3>
             <p className="price">
               {item.oldPrice && <span className="old-price">{item.oldPrice}</span>}

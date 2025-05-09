@@ -24,15 +24,21 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     text-align: center;
+    color: black;
   }
   
-  .product-image {
+  .product-images {
     margin: 6%;
     width: 86%;
+    color: black;
     height: 200px;
     object-fit: fill;
     border-radius: 6px;
-  }
+    -webkit-border-radius:;
+    -moz-border-radius:;
+    -ms-border-radius:;
+    -o-border-radius:;
+}
   
   .style-card h3 {
     font-size: 18px;

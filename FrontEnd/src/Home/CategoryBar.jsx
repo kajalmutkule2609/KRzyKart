@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom"; // import useNavigate
+import { useNavigate } from "react-router-dom"; 
 import "../homeCss/CategoryBar.css";
 
 const categories = [
@@ -18,20 +18,28 @@ const CategoryBar = () => {
   const navigate = useNavigate();
 
   const handleCategoryClick = (name) => {
-    const route = name.toLowerCase().replace(/[\s&]+/g, "-");
-    navigate(`/category/${route}`);
+    // turn "Home & Furniture" → "home-furniture", "Mobiles" → "mobiles", etc.
+    const slug = name
+      .toLowerCase()
+      .replace(/[\s&]+/g, "-")   
+      .replace(/[^a-z0-9\-]/g, ""); 
+
+    navigate(`/display-products/${slug}`);
   };
 
   return (
     <div className="category-bar">
-      {categories.map((category, index) => (
+      {categories.map((category, idx) => (
         <div
-          key={index}
+          key={idx}
           className="category-item"
           onClick={() => handleCategoryClick(category.name)}
-          style={{ cursor: "pointer" }}
         >
-          <img src={category.image} alt={category.name} className="category-icon" />
+          <img
+            src={category.image}
+            alt={category.name}
+            className="category-icon"
+          />
           <span className="category-name">{category.name}</span>
         </div>
       ))}

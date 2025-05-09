@@ -61,6 +61,10 @@
   cursor: pointer;
   margin-top: 10px;
   border: none;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
 }
 
 .subscribe-btn:hover {

@@ -32,28 +32,40 @@ const Login = () => {
     const newErrors = validateForm();
     setErrors(newErrors);
     if (Object.keys(newErrors).length === 0) {
-      try {
-        const response = await loginUser(formData);
-        if (response.data.includes("Login Failed")) {
-          alert("Login Failed !! Please Try Again");
-          console.log("login Failed");
-        } else {
-          const userDataResponse = await getUserByEmail(formData.email);
-          localStorage.setItem("userData", JSON.stringify(userDataResponse.data));
-          navigate("/");
+        try {
+            const response = await loginUser(formData);
+            console.log("Login Response:", response);
+            if (response.status === 200 || response.status === 201) {
+                const userDataResponse = await getUserByEmail(formData.email);
+                const userData = userDataResponse.data;
+                console.log("User Data:", userData);
+                localStorage.setItem("userData", JSON.stringify(userData));
+                localStorage.setItem("isLoggedIn", true);
+                // Check user role and navigate accordingly
+                if (userData.role === "Customer" || userData.role === "customer") {
+                    navigate("/");
+                } else if (userData.role === "Admin" || userData.role === "admin") {
+                    navigate("/admin-dashboard");
+                } else if (userData.role === "Seller" || userData.role === "seller") {
+                    navigate("/seller-dashboard");
+                } else {
+                    alert("Invalid user role");
+                }
+            } else {
+                alert("Login Failed !! Please Try Again");
+            }
+        } catch (error) {
+            console.error("Login Error:", error);
+            alert("Login Failed !! Please Try Again");
         }
-      } catch (error) {
-        alert("Login Failed !! Please Try Again");
-        console.log("login Failed");
-      }
     } else {
-      alert("Login Failed !! Please Try Again");
-      console.log("login Failed");
+        alert("Login Failed !! Please Try Again");
     }
-  };
-  
-  
+};
 
+  
+  
+  
   return (
     <div className="login-container">
       <div className="login-box">

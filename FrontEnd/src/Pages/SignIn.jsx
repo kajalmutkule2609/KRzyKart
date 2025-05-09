@@ -4,7 +4,7 @@ import "../Pages/SignIn.css"; // Import the CSS file
 import { registerUser, generateOtp, verifyOtp } from "../Apis/userApi.api";
 
 const SignUp = () => {
-  const navigate = useNavigate(); // Initialize navigation
+  const navigate = useNavigate(); 
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -39,14 +39,13 @@ const SignUp = () => {
   };
 
   // Handle Form Submit
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const newErrors = validateForm();
-    if (Object.keys(newErrors).length === 0 && verified) {
-      const response = await registerUser({
-                ...formData,
-                role: "Customer", 
-              });
+  
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const newErrors = validateForm();
+  if (Object.keys(newErrors).length === 0 && verified) {
+    try {
+      const response = await registerUser({ ...formData, role: "Customer" });
       console.log(response.data);
       setSuccess("Registration Successful!");
       setErrors({});
@@ -57,13 +56,21 @@ const SignUp = () => {
       setTimeout(() => {
         navigate("/login");
       }, 2000);
-    } else {
-      setSuccess("Registration Failed");
-      setErrors(newErrors);
-      console.log("Registration Failed");
+    }  catch (error) {
+      if (error.response && error.response.status === 403) {
+        setErrors({ general: "User already exists with the given details." });
+      } else {
+        setErrors({ general: "An error occurred" });
+      }    
+      setSuccess("");
     }
-  };
-  
+  } else {
+    setSuccess("Registration Failed");
+    setErrors(newErrors);
+    console.log("Registration Failed");
+  }
+};
+
 
   const handleSendOtp = async (e) => {
     e.preventDefault();
@@ -111,6 +118,7 @@ const SignUp = () => {
     <div className="signup-container">
       <div className="signup-box">
         <h2 className="signup-title">Sign Up</h2>
+        {errors.general && <p className="signup-error">{errors.general}</p>}
         {success && <p className="signup-success">{success}</p>}
         <form className="signup-form">
           <div>

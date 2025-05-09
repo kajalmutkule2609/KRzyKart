@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API_URL = 'http://localhost:8080/ECommerceWebsite/User';
-
+axios.defaults.withCredentials = true;
 const registerUser = (userData) => {
     return axios.post(`${API_URL}/createUser`, userData);
 };
@@ -22,7 +22,14 @@ const forgotPassword = (formData) => {
     return axios.put(`${API_URL}/changePassword/${formData.email}`, { password: formData.newPassword });
 }
 
-
+const deleteUser = (email) => {
+    return axios.delete(`${API_URL}/deleteUser/${email}`);
+  };
+  
+  const updateUser = (email, userData) => {
+    return axios.put(`${API_URL}/updateUser/${email}`, userData);
+  };
+  
 
 const generateOtp = async (data) => {
     try {
@@ -34,6 +41,10 @@ const generateOtp = async (data) => {
 };
 
 
+ const getUserIdByEmail = (email) => {
+    return axios.get(`${API_URL}/getUserIdByEmail/${email}`);
+  };
+  
 const verifyOtp = async (data) => {
     try {
         const response = await axios.post(`${API_URL}/verify-otp`, data);
@@ -45,4 +56,4 @@ const verifyOtp = async (data) => {
 
 
 
-export { registerUser,getUser,getUserByEmail,loginUser,forgotPassword,generateOtp,verifyOtp};
+export { registerUser,getUser,getUserByEmail,loginUser,forgotPassword,generateOtp,verifyOtp,updateUser,deleteUser,getUserIdByEmail};

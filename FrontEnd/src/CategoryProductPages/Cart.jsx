@@ -1,9 +1,25 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { CartContext } from './CartContext';
 import "../CategoryProductPages/Cart.css";
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
-  const { cart, updateCartQuantity, removeFromCart } = useContext(CartContext);
+  const navigate = useNavigate();
+  const {
+    cart,
+    handleRemoveFromCart,
+    incrementQuantity,
+    decrementQuantity,
+    fetchCartData
+  } = useContext(CartContext);
+
+  useEffect(() => {
+    fetchCartData();
+  }, []);
+
+  const getTotalPrice = () => {
+    return cart.reduce((acc, product) => acc + (Number(product.price) * product.quantity), 0);
+  };
 
   return (
     <div className="cart-container">
@@ -22,32 +38,44 @@ const Cart = () => {
             <tr key={product.id}>
               <td>{product.prodName}</td>
               <td>
-                <img src={product.image} alt={product.prodName} style={{ width: '50px', height: '50px' }} />
+                <img src={product.image} alt={product.prodName} style={{ width: '120px', height: '90px' }} />
               </td>
               <td>
-                <button className="btn" onClick={() => updateCartQuantity(product.id, product.quantity - 1)}>-</button>
+                <button className="btn" onClick={() => decrementQuantity(product.id)}>-</button>
                 {product.quantity}
-                <button className="btn" onClick={() => updateCartQuantity(product.id, product.quantity + 1)}>+</button>
+                <button className="btn" onClick={() => incrementQuantity(product.id)}>+</button>
               </td>
-              <td>₹{product.price * product.quantity}</td>
-              <td><button onClick={() => removeFromCart(product.id)}>X</button></td>
+              <td>₹{Number(product.price) * product.quantity}</td>
+              <td>
+                <button
+                  onClick={() => handleRemoveFromCart(product.id)}
+                  className="remove-btn"
+                >
+                  X
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
         <tfoot>
           <tr>
             <td colSpan={4}>Total Price:</td>
-            <td>₹{cart.reduce((acc, product) => acc + product.price * product.quantity, 0)}</td>
+            <td>₹{getTotalPrice()}</td>
           </tr>
         </tfoot>
       </table>
       <div className="cart-actions">
-        <button>Checkout</button>
-      </div>
+  <button 
+    onClick={() => navigate('/checkout')} 
+    disabled={cart.length === 0}
+    style={{ opacity: cart.length === 0 ? 0.5 : 1, cursor: cart.length === 0 ? 'not-allowed' : 'pointer' }}
+  >
+    Checkout
+  </button>
+</div>
+
     </div>
   );
 };
 
 export default Cart;
-
-

@@ -6,6 +6,7 @@
 }
 .signup-container {
   height: 100vh;
+  margin-top: 50px;
   width:98vw;
   display: flex;
   align-items: center;

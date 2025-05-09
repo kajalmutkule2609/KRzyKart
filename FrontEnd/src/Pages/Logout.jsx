@@ -1,17 +1,26 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
+import { CartContext } from "./CartContext";
 
 const Logout = () => {
-  const navigate = useNavigate();
+  const { clearCart } = useContext(CartContext); 
 
   const handleLogout = () => {
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    const userId = userData?.userId;
+
+    if (userId) {
+      localStorage.removeItem(`cart_${userId}`);
+    }
+
     localStorage.removeItem("userData");
-    navigate("/login");
+    localStorage.removeItem("isLoggedIn");
+
+    clearCart();
+
+    window.location.href = "/login";
   };
 
-  return (
-    <button onClick={handleLogout}>Logout</button>
-  );
+  return <button onClick={handleLogout}>Logout</button>;
 };
 
 export default Logout;

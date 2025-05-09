@@ -1,0 +1,112 @@
+.update-User {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.update-User form {
+  width: 30%;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.update-User label {
+  display: block;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.update-User input[type="email"], .update-User input[type="password"] {
+  width: 100%;
+  height: 45px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: black;
+}
+
+.update-User button[type="submit"] {
+  width: 100%;
+  height: 40px;
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.update-User button[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+
+.updateUserDiv {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.updateUser {
+  width: 40%;
+  margin: 60px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding-left: 5%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: black;
+}
+
+.updateUser label {
+  display: block;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.ip {
+  width: 85%;
+  height: 45px;
+  margin-bottom: 20px;
+  padding: 10px;
+  color: black;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.updateTitle {
+  color: black;
+  font-weight: bolder;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.update-submit {
+  width: 30%;
+  height: 40px;
+  background-color: #4CAF50;
+  /* color: #fff; */
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 25%;
+}
+
+.update-submit:hover {
+  background-color: #3e8e41;
+}
+
+.update-User p, .updateUser p {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+

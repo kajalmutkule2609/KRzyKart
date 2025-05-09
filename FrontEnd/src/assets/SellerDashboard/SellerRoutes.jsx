@@ -1,21 +1,21 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
-import SellerDashboard from "./SellerDashboard";
-import AddProduct from "./AddProduct";
-import ViewProducts from "./ViewProducts";
-import SearchProducts from "./SearchProducts";
-import DeleteProduct from "./DeleteProduct";
-import UpdateProduct from "./UpdateProduct";
+import { Routes, Route } from 'react-router-dom';
+import AddProduct from './AddProduct';
+import GetAllProducts from './DisplayProducts';
+import SearchProduct from './SearchProducts';
+import UpdateProduct from './UpdateProducts';
+import GetAllProductsBySellerId from './DisplayProductsBySellerId';
+// import SellerRoutes from '../src/assets/SellerDashboard/SellerRoutes';
 
 const SellerRoutes = () => {
   return (
     <Routes>
-      <Route path="/seller" element={<SellerDashboard />} />
-      <Route path="/seller/add-product" element={<AddProduct />} />
-      <Route path="/seller/view-products" element={<ViewProducts />} />
-      <Route path="/seller/search-products" element={<SearchProducts />} />
-      <Route path="/seller/delete-product" element={<DeleteProduct />} />
-      <Route path="/seller/update-product" element={<UpdateProduct />} />
+      <Route path="/" element={<div>Seller Dashboard</div>} />
+      <Route path="add-product" element={<AddProduct />} />
+      <Route path="display-products" element={<GetAllProducts />} />
+      <Route path="display-products-By-SellerID" element={<GetAllProductsBySellerId />} />
+      <Route path="search-product" element={<SearchProduct />} />
+      <Route path="update-product" element={<UpdateProduct />} />
+      <Route path="search-product" element={<SearchProduct />} />
     </Routes>
   );
 };

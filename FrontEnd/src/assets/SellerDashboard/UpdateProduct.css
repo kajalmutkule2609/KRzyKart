@@ -1,0 +1,54 @@
+.product-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  margin-top: 60px;
+}
+
+.product-popup {
+  background: white;
+  padding: 20px;
+  width: 400px;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+.product-popup form {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-popup label {
+  margin-top: 10px;
+}
+
+.product-popup input {
+  padding: 8px;
+  margin-top: 5px;
+}
+.title{
+    color: black;
+}
+.update-form{
+    color: black;
+}
+.update-form input{
+    background-color: white;
+    color: black;
+    border: 1px solid #929191;
+}
+.sb{
+    width: 30%;
+    margin-left: 30%;
+    margin-top: 10px;
+}

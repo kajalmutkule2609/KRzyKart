@@ -216,5 +216,102 @@ public class ProductRepositoryImp implements ProductRepository {
 		}
 	}
 
+	@Override
+	public List<ProductModel> searchProductByNamePattern(String prodName) {
+	    String likePattern = "%" + prodName + "%";
+
+	    List<ProductModel> list = jdbcTemplate.query(
+	        ProductQuery.getProductByNamePattern,
+	        new Object[] { likePattern },
+	        new RowMapper<ProductModel>() {
+	            @Override
+	            public ProductModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+	                ProductModel model = new ProductModel();
+	                model.setProdId(rs.getInt(1));
+	                model.setProdName(rs.getString(2));
+	                model.setPrice(rs.getDouble(3));
+	                model.setQuantity(rs.getInt(4));
+	                model.setDescription(rs.getString(5));
+	                model.setImageUrl(rs.getString(6));
+	                model.setCid(rs.getInt(7));
+	                model.setUserId(rs.getLong(8));
+	                return model;
+	            }
+	        }
+	    );
+
+	    return list;
+	}
+
+	@Override
+	public List<ProductModel> sortProductsByPriceLowToHighByCategory(String category) {
+		 return jdbcTemplate.query(
+			        ProductQuery.sortByPriceInAscWithCategory,
+			        new Object[] { category }, 
+			        new RowMapper<ProductModel>() {
+			            @Override
+			            public ProductModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+			                ProductModel model = new ProductModel();
+			                model.setProdId(rs.getInt(1));
+			                model.setProdName(rs.getString(2));
+			                model.setPrice(rs.getDouble(3));
+			                model.setQuantity(rs.getInt(4));
+			                model.setDescription(rs.getString(5));
+			                model.setImageUrl(rs.getString(6));
+			                model.setCid(rs.getInt(7));
+			                model.setUserId(rs.getLong(8));
+			                return model;
+			            }
+			        }
+			    );
+	}
+
+	@Override
+	public List<ProductModel> sortProductsByPriceHighToLowByCategory(String category) {
+		 return jdbcTemplate.query(
+			        ProductQuery.sortByPriceInDescWithCategory,
+			        new Object[] { category }, 
+			        new RowMapper<ProductModel>() {
+			            @Override
+			            public ProductModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+			                ProductModel model = new ProductModel();
+			                model.setProdId(rs.getInt(1));
+			                model.setProdName(rs.getString(2));
+			                model.setPrice(rs.getDouble(3));
+			                model.setQuantity(rs.getInt(4));
+			                model.setDescription(rs.getString(5));
+			                model.setImageUrl(rs.getString(6));
+			                model.setCid(rs.getInt(7));
+			                model.setUserId(rs.getLong(8));
+			                return model;
+			            }
+			        }
+			    );
+	}
+
+	@Override
+	public List<ProductModel> getProductsByPriceRange(int range1, int range2, String category) {
+		return jdbcTemplate.query(
+		        ProductQuery.getProductsByPriceRange,
+		        new Object[] { range1,range2,category }, 
+		        new RowMapper<ProductModel>() {
+		            @Override
+		            public ProductModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+		                ProductModel model = new ProductModel();
+		                model.setProdId(rs.getInt(1));
+		                model.setProdName(rs.getString(2));
+		                model.setPrice(rs.getDouble(3));
+		                model.setQuantity(rs.getInt(4));
+		                model.setDescription(rs.getString(5));
+		                model.setImageUrl(rs.getString(6));
+		                model.setCid(rs.getInt(7));
+		                model.setUserId(rs.getLong(8));
+		                return model;
+		            }
+		        }
+		    );
+	}
+
+
 
 }

@@ -1,0 +1,108 @@
+.popup-backdrop {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background-color: rgba(0,0,0,0.6);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 999;
+  }
+  
+  .popup-container {
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    text-align: center;
+  }
+  
+  .popup-container h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #333;
+  }
+  
+  .popup-container label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #555;
+  }
+  
+  .popup-container input[type="password"],
+  .popup-container input[type="text"] {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 16px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: white;
+    color: black;
+  }
+  
+  .popup-container button {
+    padding: 10px 16px;
+    margin: 8px 6px 0;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: opacity 0.2s ease-in-out;
+  }
+  
+  .popup-container button:hover {
+    opacity: 0.9;
+  }
+  
+  .popup-container .close-btn {
+    background-color: #ccc;
+    color: #333;
+  }
+  
+  /* Scrollable list of categories */
+  .category-list {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 16px;
+    text-align: left;
+  }
+  
+  /* Each category row */
+  .category-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 10px 0;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .category-item strong {
+    flex: 1;
+    min-width: 80px;
+    color: #222;
+  }
+  
+  .category-item input[type="text"] {
+    flex: 2;
+    min-width: 150px;
+    margin: 0;
+  }
+  
+  .category-item button {
+    flex-shrink: 0;
+    white-space: nowrap;
+    background-color: #ff6b6b;
+    color: #fff;
+  }
+  
+  /* Primary action (Validate / Update first button) */
+  .popup-container button:first-of-type {
+    background: linear-gradient(to right, #ffa751, #ff6a00);
+    color: white;
+  }
+  

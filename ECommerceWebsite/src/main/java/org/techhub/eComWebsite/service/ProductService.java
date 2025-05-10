@@ -16,4 +16,8 @@ public interface ProductService {
 	public List<ProductModel> searchProductByProductName(String prodName) ;
 	public int getProdIdByName(String prodName);
 	public String getProdNameById(int pid);
+	public List<ProductModel> searchProductByNamePattern(String prodName);
+	public List<ProductModel> sortProductsByPriceLowToHighByCategory(String category);
+	public List<ProductModel> sortProductsByPriceHighToLowByCategory(String category);
+	public List<ProductModel> getProductsByPriceRange(int range1,int range2,String category);
 }

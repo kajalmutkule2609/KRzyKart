@@ -66,4 +66,24 @@ public class ProductServiceImp implements ProductService {
 	public String getProdNameById(int pid) {
 		return prodRepo.getProdNameById(pid);
 	}
+
+	@Override
+	public List<ProductModel> searchProductByNamePattern(String prodName) {
+		return prodRepo.searchProductByNamePattern(prodName);
+	}
+
+	@Override
+	public List<ProductModel> sortProductsByPriceLowToHighByCategory(String category) {
+		return prodRepo.sortProductsByPriceLowToHighByCategory(category);
+	}
+
+	@Override
+	public List<ProductModel> sortProductsByPriceHighToLowByCategory(String category) {
+		return prodRepo.sortProductsByPriceHighToLowByCategory(category);
+	}
+
+	@Override
+	public List<ProductModel> getProductsByPriceRange(int range1, int range2, String category) {
+		return prodRepo.getProductsByPriceRange(range1, range2, category);
+	}
 }

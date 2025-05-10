@@ -1,0 +1,37 @@
+.payment-container {
+  width: 80vw;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+  color: black;
+  margin: 10%;
+}
+
+.payment-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.payment-table th,
+.payment-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.payment-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.submit-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.select{
+    background-color: white;
+    color: black;
+}

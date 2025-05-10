@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.techhub.eComWebsite.Model.ProductModel;
 import org.techhub.eComWebsite.service.ProductServiceImp;
@@ -105,4 +106,21 @@ public class ProductController {
         return new ResponseEntity<>(prodName, HttpStatus.OK);
     }
 	
+	@GetMapping("/getProductsByProductNamePattern/{prodName}")
+	public List<ProductModel> searchProductByNamePattern(@PathVariable ("prodName") String prodName){
+		return prodService.searchProductByNamePattern(prodName);	
+	}
+	@GetMapping("/sortProductByPriceLowToHighByCategory/{name}")
+	public List<ProductModel> sortByPriceLowToHighByCategory(@PathVariable ("name")String name){
+		return prodService.sortProductsByPriceLowToHighByCategory(name);
+	}
+	@GetMapping("/sortProductByPriceHighToLowByCategory/{name}")
+	public List<ProductModel> sortByPriceHighToLowByCategory(@PathVariable ("name")String name){
+		return prodService.sortProductsByPriceHighToLowByCategory(name);
+	}
+	@GetMapping("/filterByPriceRange")
+    public ResponseEntity<List<ProductModel>> getProductsByPriceRange(@RequestParam int min,@RequestParam int max,@RequestParam String category) {
+        List<ProductModel> products = prodService.getProductsByPriceRange(min, max, category);
+        return ResponseEntity.ok(products);
+    }
 }

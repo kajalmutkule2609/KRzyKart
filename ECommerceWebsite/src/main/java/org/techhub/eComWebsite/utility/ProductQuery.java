@@ -14,5 +14,11 @@ public class ProductQuery {
 	public static String sortProductsByPriceInDesc = "select * from Product order By price desc";
 	public static String getProdIdByName="Select prodId from Product where prodName=? limit 1";
 	public static String getProdNameById="Select ProdName from Product where prodId=?";
+	public static String getProductByNamePattern = "SELECT * FROM Product WHERE prodName LIKE ?";
+	
+	public static String sortByPriceInAscWithCategory="select p.* from Product p Inner join Category c on p.cid=c.cid where c.name=?  order By p.price asc";
+	public static String sortByPriceInDescWithCategory="select p.* from Product p Inner join Category c on p.cid=c.cid where c.name=?  order By p.price desc";
+
+	public static String getProductsByPriceRange="SELECT p.* FROM Product p INNER JOIN Category c ON p.cid = c.cid WHERE p.price BETWEEN ? AND ? AND c.name = ?";
 
 }

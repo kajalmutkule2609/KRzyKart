@@ -1,0 +1,125 @@
+.seller-dashboard {
+  display: flex;
+  flex-direction: row;
+  min-height: calc(100vh - 70px); /* navbar space adjustment */
+  margin-top: 70px;
+  background: #f9f9f9;
+  padding: 20px;
+  gap: 20px;
+}
+
+.left-panel {
+  width: 40%;
+  background: white;
+  padding: 30px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  /*justify-content: space-between;
+  */:;
+  -webkit-border-radius:;
+  -moz-border-radius:;
+  -ms-border-radius:;
+  -o-border-radius:;
+}
+
+.left-panel h2 {
+  margin-bottom: 10px;
+  font-size: 2rem;
+  color: #333;
+}
+
+.left-panel p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.lables {
+  color: #222;
+  font-weight: 600;
+  margin-right: 5px;
+}
+
+.UpdateDelete {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.UpdateDelete a {
+  color: #007BFF;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  cursor: pointer;
+  -webkit-transition:;
+  -moz-transition:;
+  -ms-transition:;
+  -o-transition:;
+}
+
+.UpdateDelete a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+.right-panel {
+  width: 80%;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.right-panel h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.button-grid button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
+  -webkit-border-radius:;
+  -moz-border-radius:;
+  -ms-border-radius:;
+  -o-border-radius:;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+}
+
+.button-grid button:hover {
+  background: linear-gradient(135deg, #3e8e41, #388e3c);
+  transform: translateY(-2px);
+  -webkit-transform: translateY(-2px);
+  -moz-transform: translateY(-2px);
+  -ms-transform: translateY(-2px);
+  -o-transform: translateY(-2px);
+}
+.cat{
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
+}

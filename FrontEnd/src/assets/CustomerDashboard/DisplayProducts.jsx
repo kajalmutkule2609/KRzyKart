@@ -6,6 +6,9 @@ import {
   sortProductsByPriceHighToLowByCategory,
   getProductsByCategory,
   getProductsByPriceRange,
+  getProductsByPriceHighToLow,
+  getProductsByPriceLowToHigh,
+ getAllProductsByPriceRange,  
 } from "../../Apis/productApi.api";
 import { CartContext } from "/src/CategoryProductPages/CartContext";
 import { WishlistContext } from "/src/CategoryProductPages/WishlistContext";
@@ -14,6 +17,7 @@ import { FaHeart } from "react-icons/fa";
 
 const DisplayProducts = () => {
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]); 
   const [selectedId, setSelectedId] = useState(null);
   const { category } = useParams();
   const { addToCart } = useContext(CartContext);
@@ -27,11 +31,13 @@ const DisplayProducts = () => {
   const [sortOption, setSortOption] = useState("");
   const [priceRangeOption, setPriceRangeOption] = useState("");
 
+  // Fetch all products or category-based products
   useEffect(() => {
     (async () => {
       let data;
 
       if (category) {
+        // Fetch category-based products
         if (sortOption === "lowToHigh") {
           data = await sortProductsByPriceLowToHighByCategory(category);
         } else if (sortOption === "highToLow") {
@@ -40,17 +46,18 @@ const DisplayProducts = () => {
           data = await getProductsByCategory(category);
         }
       } else {
-        data = await getAllProducts();
+        // Fetch all products
+        if (sortOption === "lowToHigh") {
+          data = await getProductsByPriceLowToHigh();
+        } else if (sortOption === "highToLow") {
+          data = await getProductsByPriceHighToLow();
+        } else {
+          data = await getAllProducts();
+ console.log("Product Data=========",data.imageUrl);
+        }
       }
-
-      setProducts(data);
-      await fetchWishlist();
-    })();
-  }, [category, sortOption]);
-
-  useEffect(() => {
-    (async () => {
-      if (category && priceRangeOption) {
+     
+      if (priceRangeOption) {
         let range1 = 0;
         let range2 = Number.MAX_SAFE_INTEGER;
 
@@ -69,18 +76,40 @@ const DisplayProducts = () => {
             break;
           case "50000+":
             range1 = 50000;
-            range2 = Number.MAX_SAFE_INTEGER;
+            range2 = 1000000;
             break;
           default:
             return;
         }
 
-        const data = await getProductsByPriceRange(range1, range2, category);
-        setProducts(data);
+  
+        if (category) {
+          data = await getProductsByPriceRange(range1, range2, category);
+        } else {
+          data = await getAllProductsByPriceRange(range1, range2);
+        }
       }
-    })();
-  }, [priceRangeOption, category]);
 
+      setProducts(data);
+      setFilteredProducts(data); 
+      await fetchWishlist();
+    })();
+  }, [category, sortOption, priceRangeOption]);
+
+  useEffect(() => {
+    if (sortOption) {
+      let sortedProducts = [...filteredProducts];
+      
+      if (sortOption === "lowToHigh") {
+        sortedProducts.sort((a, b) => a.price - b.price);
+      } else if (sortOption === "highToLow") {
+        sortedProducts.sort((a, b) => b.price - a.price);
+      }
+
+      setProducts(sortedProducts); 
+    }
+  }, [sortOption, filteredProducts]);
+  
   const selected = useMemo(() => {
     return products.find((p) => p.prodId === selectedId);
   }, [selectedId, products]);
@@ -100,7 +129,7 @@ const DisplayProducts = () => {
         prodName: product.prodName,
         price: product.price,
         description: product.description,
-        image: product.imageUrl,
+        imageUrl: product.imageUrl,
         quantity: 1,
       };
       await addToWishlist(newItem);
@@ -131,9 +160,9 @@ const DisplayProducts = () => {
         >
           <option value="">Filter by Price</option>
           <option value="0-1000">₹0 - ₹1000</option>
-          <option value="1001-5000">₹1001 - ₹5000</option>
-          <option value="5001-50000">₹5001 - ₹50000</option>
-          <option value="50001-100000">₹50001-₹100000</option>
+          <option value="1000-5000">₹1000 - ₹5000</option>
+          <option value="5000-50000">₹5000 - ₹50000</option>
+          <option value="50000+">₹50000+</option>
         </select>
       </div>
 
@@ -164,11 +193,7 @@ const DisplayProducts = () => {
               <FaHeart color={isInWishlist(selected) ? "red" : "black"} size={28} />
             </div>
 
-            <img
-              src={selected.imageUrl}
-              alt={selected.prodName}
-              className="modal-image"
-            />
+            <img src={selected.imageUrl} alt={selected.prodName} className="modal-image" />
             <h2>{selected.prodName}</h2>
             <p>{selected.description}</p>
             <div>
@@ -187,7 +212,7 @@ const DisplayProducts = () => {
             </div>
 
             <div className="modal-actions">
-              <button
+              <button className="cartbtn"
                 onClick={() => {
                   const userData = JSON.parse(localStorage.getItem("userData"));
                   const userId = userData?.userId;

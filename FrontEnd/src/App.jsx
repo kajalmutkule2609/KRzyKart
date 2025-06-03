@@ -33,6 +33,8 @@ import SearchProduct from "./assets/SellerDashboard/SearchProducts";
 import ProductsByCategory from "./assets/SellerDashboard/ProductsByCategory";
 import AdminDashboard from '../src/assets/AdminDashboard/AdminDashboard';
 import DisplayAllProducts from '../src/assets/CustomerDashboard/DisplayProducts';
+import AllOrders from "../src/assets/AdminDashboard/GetAllOrders";
+import DisplayCategory from "../src/assets/CustomerDashboard/DisplayCategory";
 import GetAllProductsBySellerId from "./assets/SellerDashboard/DisplayProductsBySellerId";
 export default function App() {
   return (
@@ -74,14 +76,17 @@ export default function App() {
               <Route path="search-product" element={<SearchProduct />} />
               <Route path="search-product/:searchTerm" element={<SearchProduct />} />
               <Route path="update-product" element={<UpdateProduct />} />
+              <Route path="show-category" element={<DisplayCategory />} />
             </Route>
             <Route path="/admin-dashboard" element={<ProtectedRoute />}>
               <Route index element={<AdminDashboard />} />
+              <Route path="all-orders" element={<AllOrders />} />
               <Route path="add-product" element={<AddProduct />} />
               <Route path="display-products" element={<GetAllProducts />} />
               <Route path="search-product" element={<SearchProduct />} />
               <Route path="search-product/:searchTerm" element={<SearchProduct />} />
               <Route path="update-product" element={<UpdateProduct />} />
+              <Route path="show-category" element={<DisplayCategory />} />
             </Route>
             <Route path="/display-products" element={<DisplayAllProducts />} />
             <Route path="/display-products/:category" element={<DisplayAllProducts />} />

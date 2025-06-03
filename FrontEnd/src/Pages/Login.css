@@ -5,10 +5,10 @@
   align-items: center;
   min-height: 100vh;
   width: 98vw;
-  /background-color: #84a6eb;/
-  background: #C04848;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #480048, #C04848);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #480048, #C04848); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-color: #84a6eb;
+ background: #283048;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #859398, #283048);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #859398, #283048); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   color: white;
 }
 
@@ -62,10 +62,10 @@
 
 .login-button {
   width: 60%;
-   background: #D38312;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #A83279, #D38312);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #A83279, #D38312); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  color: white;
+  background: #000000;
+  /*fallbackforoldbrowsers*/background: -webkit-linear-gradient(to right, #434343, #000000);
+  /*Chrome10-25,Safari5.1-6*/background: linear-gradient(to right, #434343, #000000);
+  /*W3C,IE10+/Edge,Firefox16+,Chrome26+,Opera12+,Safari7+*/color: white;
   padding: 12px;
   border: none;
   border-radius: 5px;
@@ -73,10 +73,10 @@ background: linear-gradient(to right, #A83279, #D38312); /* W3C, IE 10+/ Edge, F
   margin-top: 10px;
   cursor: pointer;
   margin-left: 20%;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
+  -webkit-border-radius:;
+  -moz-border-radius:;
+  -ms-border-radius:;
+  -o-border-radius:;
 }
 
 .login-button:hover {

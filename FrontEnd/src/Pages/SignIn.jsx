@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
-import "../Pages/SignIn.css"; // Import the CSS file
+import { useNavigate } from "react-router-dom";
+import "../Pages/SignIn.css"; 
 import { registerUser, generateOtp, verifyOtp } from "../Apis/userApi.api";
 
 const SignUp = () => {

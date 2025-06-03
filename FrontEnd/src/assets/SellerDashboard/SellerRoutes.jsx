@@ -4,6 +4,7 @@ import GetAllProducts from './DisplayProducts';
 import SearchProduct from './SearchProducts';
 import UpdateProduct from './UpdateProducts';
 import GetAllProductsBySellerId from './DisplayProductsBySellerId';
+import DisplayCategory from '../CustomerDashboard/DisplayCategory';
 // import SellerRoutes from '../src/assets/SellerDashboard/SellerRoutes';
 
 const SellerRoutes = () => {
@@ -16,6 +17,7 @@ const SellerRoutes = () => {
       <Route path="search-product" element={<SearchProduct />} />
       <Route path="update-product" element={<UpdateProduct />} />
       <Route path="search-product" element={<SearchProduct />} />
+     <Route path="show-category" element={<DisplayCategory />} />
     </Routes>
   );
 };

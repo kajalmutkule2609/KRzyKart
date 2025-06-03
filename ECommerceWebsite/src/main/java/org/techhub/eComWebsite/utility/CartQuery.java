@@ -14,6 +14,8 @@ public class CartQuery {
 	
 	public static String removeFromCart="Delete From Cart Where cartId=?";
 	public static String removeFromCartByprodId="Delete from Cart where pid=?";
+	
+	public static String removeFromCartByUserId="Delete from cart where userId=?";
 }
 
 

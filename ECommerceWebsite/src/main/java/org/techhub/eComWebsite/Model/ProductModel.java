@@ -1,5 +1,8 @@
 package org.techhub.eComWebsite.Model;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import jakarta.persistence.Transient;
 import lombok.*;
 
 @Data
@@ -14,4 +17,6 @@ public class ProductModel {
 	private String imageUrl;
 	private int cid;
 	private long userId;
+	@Transient
+	private MultipartFile prodImage;
 }

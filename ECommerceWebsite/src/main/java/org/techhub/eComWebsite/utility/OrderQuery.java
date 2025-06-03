@@ -14,5 +14,5 @@ public class OrderQuery {
 	public static String getOrderItemsByOrderId="Select oi.itemId,oi.price,oi.quantity,oi.pid from OrderItems oi inner join Orders o on o.orderId=oi.orderId  where oi.orderId=?";
 	public static String updateItemQuantity="Update OrderItems set quantity=? where itemId=?";
 	public static String removeItemFromOrder="Delete From OrderItems where itemId=?";
-	public static String getItemsByProductId = "Select o.itemId,o.price,o.quantity from OrderItems o inner join Product p on o.pid=p.prodid where o.pid=?";
+	public static String getItemsByProductId = "Select o.itemId,p.prodId,p.prodName,p.imageUrl,o.price,o.quantity from OrderItems o inner join Product p on o.pid=p.prodid where o.pid=?";
 }

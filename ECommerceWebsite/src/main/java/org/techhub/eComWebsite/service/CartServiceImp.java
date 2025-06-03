@@ -47,4 +47,9 @@ public class CartServiceImp implements CartService{
 	public boolean deleteCartItemByPid(int pId) {
 		return cartRepo.deleteCartItemByPid(pId);
 	}
+
+	@Override
+	public boolean deleteCartItemByUserId(Long userId) {
+		return cartRepo.deleteCartItemByUserId(userId);
+	}
 }

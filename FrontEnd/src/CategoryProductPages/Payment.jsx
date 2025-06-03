@@ -4,6 +4,7 @@ import { getOrderTotal } from "../Apis/orderApi.api";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "./CartContext";
 import { createShipping } from "../Apis/shippingApi.api";
+import { removeFromCartByUserId } from "../Apis/cartApi.api";
 import "./Payment.css";
 
 const Payment = () => {
@@ -38,8 +39,9 @@ const Payment = () => {
 
     fetchAmount();
   }, [navigate]);
-
-  const handleSubmit = async (e) => {
+const userData = JSON.parse(localStorage.getItem('userData'));
+    const userId=userData?.userId;
+const handleSubmit = async (e) => {
   e.preventDefault();
   try {
     const paymentData = {
@@ -51,9 +53,8 @@ const Payment = () => {
 
     await createPayment(paymentData);
 
-    
     const shippingDate = new Date().toISOString().split("T")[0]; 
-    const estimatedDeliveryDate = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000) 
+    const estimatedDeliveryDate = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000)
       .toISOString()
       .split("T")[0];
 
@@ -65,7 +66,10 @@ const Payment = () => {
 
     await createShipping(shippingData);
 
-    clearCart();
+    
+    await removeFromCartByUserId(userId); 
+    clearCart(); 
+
     alert("Payment successful!");
     navigate("/shipping");
 
@@ -74,8 +78,6 @@ const Payment = () => {
     alert("Payment or Shipping failed. Please try again.");
   }
 };
-
-
   return (
     <div className="payment-container">
       <h2>Confirm Payment Details</h2>

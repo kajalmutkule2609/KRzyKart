@@ -21,4 +21,8 @@ public class ProductQuery {
 
 	public static String getProductsByPriceRange="SELECT p.* FROM Product p INNER JOIN Category c ON p.cid = c.cid WHERE p.price BETWEEN ? AND ? AND c.name = ?";
 
+	public static String getAllProductsByPriceRange="SELECT * FROM Product WHERE price BETWEEN ? AND ? ";
+	
+	public static String getProductByDescPattern = "SELECT * FROM Product WHERE description LIKE ?";
+
 }

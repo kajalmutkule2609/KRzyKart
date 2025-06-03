@@ -7,24 +7,32 @@
 
 #k {
   color: rgb(127, 51, 10);
-  font-size: large;
+  font-size: larger;
   font-family: "Playwrite CU", cursive;
   font-optical-sizing: auto;
-  font-weight: <weight>;
+  font-weight: 600;
   font-style: normal;
+  
+}
+#zy{
+  font-size: larger;
+  font-weight: 600;
+   font-size: larger;
+  font-family: "Playwrite CU", cursive;
+  font-optical-sizing: auto;
 }
 
 #kart {
-  font-size: large;
+  font-size: larger;
   font-family: "Playwrite CU", cursive;
   font-optical-sizing: auto;
-  font-weight: <weight>;
+  font-weight: 600;
   font-style: normal;
   color: rgb(16, 76, 76);
 }
 /* Navbar Container */
 .navbar {
-  background-color: rgb(211, 228, 220);
+  background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 10px;
   position: fixed;
@@ -36,7 +44,7 @@
 
 .navbar-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   max-width: 1400px;
   margin: auto;
@@ -49,8 +57,9 @@
   font-size: large;
   font-family: "Playwrite CU", cursive;
   font-optical-sizing: auto;
-  font-weight: <weight>;
+  /* font-weight: <weight>; */
   font-style: normal;
+  font-weight: 600;
   margin-right:10px;
 }
 
@@ -58,18 +67,19 @@
 .menu {
   display: flex;
   list-style: none;
-  gap: 20px;
-  font-weight: 500;
+  gap: 10px;
+  font-weight: 600;
 }
 
 .menu li {
   cursor: pointer;
-  color: green;
+  margin: 8px;
+  color: rgb(1, 10, 28);
   transition: color 0.3s ease;
-  -webkit-transition:;
-  -moz-transition:;
-  -ms-transition:;
-  -o-transition:;
+  -webkit-transition: color 0.3s ease;
+  -moz-transition: color 0.3s ease;
+  -ms-transition: color 0.3s ease;
+  -o-transition: color 0.3s ease;
 }
 
 .menu li:hover {
@@ -82,10 +92,10 @@
   background-color: white;
   border-radius: 5px;
   color: black;
-  -webkit-border-radius:;
-  -moz-border-radius:;
-  -ms-border-radius:;
-  -o-border-radius:;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
 }
 
 .search-bar input {
@@ -120,7 +130,7 @@
 /* Icons */
 .icons {
   display: flex;
-  gap: 20px;
+  gap: 15px;
   font-size: 16px;
   color: gray;
   cursor: pointer;
@@ -174,6 +184,9 @@
     width: 80%;
   }
 }
+.icon-item span{
+  font-weight: 600;
+}
 
 .account-dropdown {
   position: absolute;
@@ -195,11 +208,11 @@
 .account-dropdown li:hover {
   background-color: #f0f0f0;
 }
-
+/* 
 
 .account-info {
- min-width: 400px;
- text-align: left;
+ min-width: 500px;
+ text-align: center;
   position: absolute;
   background-color: #fff;
   padding: 10px;
@@ -207,11 +220,11 @@
   top: 40px;
   right: 0;
   padding-left: 5%;
-}
+} */
 
 .account-info p {
   margin-bottom: 10px;
-  color: rgba(81, 79, 79, 0.906);
+  color: rgba(15, 14, 14, 0.906);
   font-weight: bold;
 }
 .account-info p .sp{
@@ -227,7 +240,127 @@
   margin-left: 15%;
 }
 .account-info h1{
-  color: black;
+  color: rgb(6, 5, 5);
   font-size: 2rem;
   margin: 20px;
 }
+
+.account-info {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  width: 350px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 25px 30px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  color: #333;
+  animation: fadeIn 0.3s ease-in-out;
+  -webkit-animation: fadeIn 0.3s ease-in-out;
+  -webkit-border-radius:;
+  -moz-border-radius:;
+  -ms-border-radius:;
+  -o-border-radius:;
+}
+
+.account-info h1 {
+  font-size: 1.6rem;
+  color: #00090e;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-left: 0;
+}
+
+/* .u {
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  color: #0a3850;
+  margin-bottom: 10px;
+}
+
+.n {
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #222;
+  text-align: center;
+  margin-bottom: 20px;
+} */
+
+.d {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  margin: 8px 0;
+  color: #555;
+  padding: 5px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.d svg {
+  margin-right: 10px;
+  color: #060606;
+  font-size: 1.1rem;
+  margin-left: 20px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+    -webkit-transform: translateY(-8px);
+    -moz-transform: translateY(-8px);
+    -ms-transform: translateY(-8px);
+    -o-transform: translateY(-8px);
+}
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+}
+}
+ .logout{
+ /* background: #0f0c29;  
+background: -webkit-linear-gradient(to bottom, #24243e, #302b63, #0f0c29); 
+background: linear-gradient(to bottom, #24243e, #302b63, #0f0c29); 
+color: white; */
+
+   background: #000000;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: white;
+} 
+
+.account-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.account-actions button {
+  background: #fff;
+  border: 2px solid #000;
+  color: black;
+  padding: 10px 10px;
+  font-weight: 600;
+  width: 100%;
+  margin: auto;
+  gap: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+.account-actions button:hover {
+  background-color: #000;
+  color: white;
+}
+

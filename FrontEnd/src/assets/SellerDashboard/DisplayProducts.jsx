@@ -39,7 +39,7 @@ const GetAllProducts = () => {
             <div className="product-card1" key={product.prodId}>
               <div className="image-container1">
                 <img
-                  src={product.imageUrl || "https://via.placeholder.com/280x280?text=No+Image"}
+                  src={product.imageUrl }
                   alt={product.prodName}
                   className="product-image1"
                 />

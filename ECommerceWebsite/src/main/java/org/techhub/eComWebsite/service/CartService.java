@@ -12,4 +12,5 @@ public interface CartService {
 	public boolean decrementQuantity(int cartId);
 	public boolean deleteCartItem(int cartId);
 	public boolean deleteCartItemByPid(int pId);
+	public boolean deleteCartItemByUserId(Long userId);
 }

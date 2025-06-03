@@ -73,6 +73,10 @@ public class CartRepositoryImp implements CartRepository{
 	public boolean deleteCartItemByPid(int pId) {
 		return jdbcTemplate.update(CartQuery.removeFromCartByprodId, pId)>0;
 	}
+	@Override
+	public boolean deleteCartItemByUserId(Long userId) {
+		return jdbcTemplate.update(CartQuery.removeFromCartByUserId,userId)>0;
+	}
 
 
 }

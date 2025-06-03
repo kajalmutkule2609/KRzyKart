@@ -25,7 +25,7 @@ export const createPayment = async (paymentData) => {
 export const getPaymentByOrderId = async (orderId) => {
   try {
     const response = await axios.get(`${API_URL}/getByOrderId/${orderId}`);
-    return response.data;  // Returns the payment details or no content
+    return response.data;  
   } catch (error) {
     console.error(`Error fetching payment for order ${orderId}:`, error);
     throw error;

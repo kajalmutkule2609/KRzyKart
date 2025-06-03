@@ -36,14 +36,14 @@ body{
 }
   
   .wishlist-image {
-    width: 200px;
+    width: 150px;
     height: 200px;
     object-fit: cover;
     border-radius: 8px;
-    -webkit-border-radius:;
-    -moz-border-radius:;
-    -ms-border-radius:;
-    -o-border-radius:;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
 }
   
   .wishlist-details {
@@ -53,4 +53,17 @@ body{
   
   .wlst{
     margin-bottom: 10px;
+  }
+  .addToCart{
+     background: #0f0c29;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to bottom, #24243e, #302b63, #0f0c29);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to bottom, #24243e, #302b63, #0f0c29); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+color: white;
+height: 30px;
+padding-top: 2px;
+  }
+  .empty{
+    color: black;
+    font-weight: bolder;
+    font-size: 3rem;
   }

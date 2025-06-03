@@ -22,6 +22,8 @@ import org.techhub.eComWebsite.Model.OrderModel;
 import org.techhub.eComWebsite.service.OrderService;
 import org.techhub.eComWebsite.service.OrderServiceImp;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @RequestMapping("/ECommerceWebsite/Order")
 @CrossOrigin("http://localhost:5173")
 @RestController
@@ -68,9 +70,11 @@ public class OrderController {
 	@DeleteMapping("cancelOrder/{orderId}")
 	public String cancelOrder(@PathVariable int orderId) {
 		if(orderService.deleteOrder(orderId)) {
+			log.info("Order Cancelled");
 			return "Order Cancelled Sucessfully..";
 		}
 		else {
+			log.error("Failed to cancel the order");
 			return "Order not cancelled";
 		}
 	}
@@ -108,8 +112,10 @@ public class OrderController {
 	public String updateItemQuantity(@PathVariable int itemId, @RequestBody Map<String, Integer> body) {
 	    int quantity = body.get("quantity");
 	    if (orderService.updateItemQuantity(itemId, quantity)) {
+	    	log.info("quantity updated");
 	        return "Quantity updated";
 	    } else {
+	    	log.error("failed to update the order item");
 	        return "Update failed";
 	    }
 	}
@@ -117,8 +123,10 @@ public class OrderController {
 	@DeleteMapping("/removeItemFromOrder/{itemId}")
 	public String removeItemFromOrder(@PathVariable int itemId) {
 	    if (orderService.removeItemFromOrder(itemId)) {
+	    	log.info("Item Removed From Order");
 	        return "Item removed";
 	    } else {
+	    	log.error("Failed to remove order!!");
 	        return "Item not removed";
 	    }
 	}
@@ -128,6 +136,10 @@ public class OrderController {
 	    Double total = orderService.getOrderTotalByOrderId(orderId); 
 	    return ResponseEntity.ok(total);
 	}
-
+	@GetMapping("/getItemsByProdId/{prodId}")
+	public ResponseEntity<List<Map<String, Object>>> getItemsByProdId(@PathVariable int prodId) {
+	    Optional<List<Map<String, Object>>> itemsOpt = orderService.getItemsByProductId(prodId);
+	    return itemsOpt.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.noContent().build());
+	}
 
 }

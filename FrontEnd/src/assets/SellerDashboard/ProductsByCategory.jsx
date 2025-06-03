@@ -5,7 +5,7 @@ import {
   sortProductsByPriceLowToHighByCategory,
   sortProductsByPriceHighToLowByCategory
 } from '../../Apis/productApi.api'; 
-import './SearchProduct.css';
+import './ProductsByCategory.css';
 
 const ProductsByCategory = () => {
   const { category } = useParams();
@@ -66,7 +66,7 @@ const ProductsByCategory = () => {
       <div className="sort-dropdown">
         <label>Sort By: </label>
         <select onChange={handleSortChange} value={sortOrder}>
-          <option value="">Default</option>
+          <option value="">Sort By Price</option>
           <option value="lowToHigh">Price: Low to High</option>
           <option value="highToLow">Price: High to Low</option>
         </select>
@@ -104,7 +104,7 @@ const ProductsByCategory = () => {
 
                     <div className="product-buttons">
                       <button className="btn-add-to-cart">Add to Cart</button>
-                      <button className="btn-view-details">View Details</button>
+                      {/* <button className="btn-view-details">View Details</button> */}
                     </div>
                   </div>
                 </div>

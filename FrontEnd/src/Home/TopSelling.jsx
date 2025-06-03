@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../homeCss/TopSelling.css";
 import stripedShirtImg from "../assets/Strippedshirt.jpg";
@@ -8,9 +7,9 @@ import skinnyJeansImg from "../assets/wt.jpg";
 
 const topSelling = [
   { name: "Vertical Striped Shirt", price: "$212", oldPrice: "$232", discount: "-10%", image: stripedShirtImg },
-  { name: "Courage Graphic T-shirt", price: "$145", image: shoes },
-  { name: "Loose Fit Bermuda Shorts", price: "$80", image: bermudaShortsImg },
-  { name: "Faded Skinny Jeans", price: "$210", image: skinnyJeansImg }
+  { name: "Louboutin", price: "$145", image: shoes },
+  { name: "Amante Classic HandBag", price: "$80", image: bermudaShortsImg },
+  { name: "Watch", price: "$210", image: skinnyJeansImg }
 ];
 
 const TopSelling = () => {

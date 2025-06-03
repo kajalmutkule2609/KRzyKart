@@ -1,25 +1,23 @@
-/* Ensure carousel stays within the screen */
 
 .carousel-container {
   width: 100%;
-  max-width: 99vw; /* Adjust max width to prevent overflow */
+  max-width: 99vw; 
   height: 400px;
-  margin: 0 auto; /* Center it properly */
+  margin: 0 auto; 
   overflow: hidden;
   display: flex;
   justify-content: center;
  
 }
 
-/* Make sure images are properly sized */
 .carousel-image {
   width: 100%;
   max-width: 100%;
-  height: 450px; /* Default height */
+  height: 450px;
   object-fit: fill;
 }
 
-/* Swiper Navigation and Pagination Styling */
+
 .swiper-pagination-bullet-active {
   background-color: #ff3e6c !important;
 }

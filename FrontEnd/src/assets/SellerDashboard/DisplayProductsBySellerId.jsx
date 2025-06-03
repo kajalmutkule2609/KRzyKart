@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import {  deleteProduct, getProductsBySellerId } from '../../Apis/productApi.api';
+import { deleteProduct, getProductsBySellerId } from '../../Apis/productApi.api';
 import './DisplayProducts.css';
+import UpdateProduct from './UpdateProducts';
 
 const GetAllProductsBySellerId = () => {
   const [products, setProducts] = useState([]);
   const [uid, setUid] = useState('');
+  const [selectedProduct, setSelectedProduct] = useState(null); // state for selected product to update
+  const [showUpdateModal, setShowUpdateModal] = useState(false); // state to control the modal visibility
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -12,12 +15,12 @@ const GetAllProductsBySellerId = () => {
         const userData = JSON.parse(localStorage.getItem('userData'));
         const userId = userData?.userId;
         setUid(userId);
-  
+
         if (!userId) {
           console.error("User ID not found in localStorage.");
           return;
         }
-  
+
         const data = await getProductsBySellerId(userId);
         setProducts(data);
       } catch (error) {
@@ -26,7 +29,6 @@ const GetAllProductsBySellerId = () => {
     };
     fetchProducts();
   }, []);
-  
 
   const handleDeleteProduct = async (prodName) => {
     try {
@@ -38,9 +40,11 @@ const GetAllProductsBySellerId = () => {
     }
   };
 
-  // const handleUpdateProduct = (prodId) => {
-  //   console.log('Update Product clicked for ID:', prodId);
-  // };
+  // Open Update Modal and pass selected product to it
+  const handleUpdateProduct = (product) => {
+    setSelectedProduct(product);
+    setShowUpdateModal(true);
+  };
 
   return (
     <div className="products-wrapper1">
@@ -49,11 +53,7 @@ const GetAllProductsBySellerId = () => {
           products.map((product) => (
             <div className="product-card1" key={product.prodId}>
               <div className="image-container1">
-                <img
-                  src={product.imageUrl || "https://via.placeholder.com/280x280?text=No+Image"}
-                  alt={product.prodName}
-                  className="product-image1"
-                />
+                <img src={product.imageUrl} alt={product.prodName} className="product-image1" />
               </div>
               <div className="product-info">
                 <div className="product-name" title={product.description}>
@@ -69,12 +69,12 @@ const GetAllProductsBySellerId = () => {
               </div>
 
               <div className="product-actions">
-                {/* <button
+                <button
                   className="update-btn"
-                  onClick={() => handleUpdateProduct(product.prodId)}
+                  onClick={() => handleUpdateProduct(product)} // open modal to update
                 >
                   Update
-                </button> */}
+                </button>
                 <button
                   className="delete-btn"
                   onClick={() => handleDeleteProduct(product.prodName)}
@@ -88,6 +88,14 @@ const GetAllProductsBySellerId = () => {
           <p>No products available</p>
         )}
       </div>
+      
+      {/* Show Update Modal if selectedProduct exists */}
+      {showUpdateModal && selectedProduct && (
+        <UpdateProduct
+          onClose={() => setShowUpdateModal(false)} // Close the modal
+          product={selectedProduct} // Pass selected product for updating
+        />
+      )}
     </div>
   );
 };

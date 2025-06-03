@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { FaUser, FaHeart, FaShoppingBag, FaSearch } from "react-icons/fa";
+import { FaUser, FaHeart, FaShoppingBag, FaSearch, FaMapMarkerAlt, FaIdBadge, FaEnvelope } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import "../homeCss/Navbar.css";
-
 export default function Navbar() {
     const [userData, setUserData] = useState(JSON.parse(localStorage.getItem("userData")) || {});
     const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem("isLoggedIn")));
     const [searchTerm, setSearchTerm] = useState("");
     const navigate = useNavigate();
     const [showAccountInfo, setShowAccountInfo] = useState(false);
+    const customerData = JSON.parse(localStorage.getItem("userData"));
 
+    const handleUpdateAccount = () => {
+        navigate("/update-user", { state: { userData: customerData } });
+    };
+
+
+    const handleDeleteAccount = () => {
+        navigate("/delete-account");
+    };
     useEffect(() => {
         const handleStorageChange = () => {
             setUserData(JSON.parse(localStorage.getItem("userData")) || {});
@@ -37,7 +45,7 @@ export default function Navbar() {
     const handleSearch = () => {
         if (!searchTerm.trim()) return;
 
-        if (["men", "women", "kids", "beauty", "home", "electronics", "fashion", "clothing"].includes(searchTerm.toLowerCase())) {
+        if (["men", "women", "kids", "beauty", "home and living", "electronics", "fashion", "clothing"].includes(searchTerm.toLowerCase())) {
             navigate(`/productByCategory/${searchTerm.toLowerCase()}`);
         } else {
             navigate(`/seller-dashboard/search-product/${searchTerm}`);
@@ -54,7 +62,7 @@ export default function Navbar() {
     return (
         <nav className="navbar">
             <div className="navbar-container">
-                <div className="logo" onClick={() => navigate("/")}><span id="k">KR</span><span id="z">zy</span><span id="kart">Kart</span>.co</div>
+                <div className="logo" onClick={() => navigate("/")}><span id="k">KR</span><span id="zy">zy</span><span id="kart">Kart</span></div>
                 <ul className="menu">
                     <li onClick={() => navigate("/display-products")}>PRODUCTS</li>
                     <li onClick={() => navigate("/display-products/men")}>MEN</li>
@@ -93,10 +101,14 @@ export default function Navbar() {
                                 {showAccountInfo && (
                                     <div className="account-info">
                                         <h1>Account Information</h1>
-                                        <p><span className="sp">Name:</span> {userData.fullName}</p>
-                                        <p><span className="sp">Email:</span> {userData.email}</p>
-                                        <p><span className="sp">Contact:</span> {userData.contactNo}</p>
-                                        <p><span className="sp">Address:</span> {userData.address}</p>
+                                        <p className='d'><FaUser /> {userData.fullName}</p>
+                                        <p className='d'><strong><FaEnvelope /></strong>{userData.email}</p>
+                                        <p className='d'><strong><FaIdBadge /></strong> {userData.contactNo}</p>
+                                        <p className='d'><strong><FaMapMarkerAlt /></strong> {userData.address}</p>
+                                        <div className="account-actions">
+                                            <button onClick={handleUpdateAccount}>Update Profile</button>
+                                            <button onClick={handleDeleteAccount}>Delete Account</button>
+                                        </div>
                                     </div>
                                 )}
                             </div>
@@ -118,7 +130,7 @@ export default function Navbar() {
                     </div>
                     {isLoggedIn && (
                         <div>
-                            <button onClick={handleLogout} style={{ marginLeft: '10px' }}>Logout</button>
+                            <button className="logout" onClick={handleLogout} style={{ marginLeft: '10px' }}>Logout</button>
                         </div>
                     )}
                 </div>

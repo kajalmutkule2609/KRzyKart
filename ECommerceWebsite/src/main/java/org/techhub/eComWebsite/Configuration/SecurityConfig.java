@@ -24,6 +24,7 @@ public class SecurityConfig {
                 .requestMatchers("/ECommerceWebsite/Product/addProduct").permitAll()
                 .requestMatchers("/ECommerceWebsite/Order/**").permitAll()
                 .requestMatchers("/ECommerceWebsite/**").permitAll()
+                .requestMatchers("/Images/**").permitAll() 
                 .anyRequest().authenticated()
             );
 

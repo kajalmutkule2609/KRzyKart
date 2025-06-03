@@ -12,6 +12,10 @@
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  -webkit-border-radius:;
+  -moz-border-radius:;
+  -ms-border-radius:;
+  -o-border-radius:;
 }
 
 .update-User label {
@@ -29,17 +33,28 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   color: black;
+  -webkit-border-radius:;
+  -moz-border-radius:;
+  -ms-border-radius:;
+  -o-border-radius:;
 }
 
 .update-User button[type="submit"] {
   width: 100%;
   height: 40px;
-  background-color: #4CAF50;
-  color: #fff;
+  
+   background: #000000;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: white;
   padding: 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
 }
 
 .update-User button[type="submit"]:hover {
@@ -62,6 +77,10 @@
   padding-left: 5%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   color: black;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
 }
 
 .updateUser label {
@@ -79,6 +98,10 @@
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
 }
 
 .updateTitle {
@@ -91,8 +114,11 @@
 .update-submit {
   width: 30%;
   height: 40px;
-  background-color: #4CAF50;
-  /* color: #fff; */
+  
+   background: #000000;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: white;
   padding: 10px;
   border: none;
   border-radius: 5px;

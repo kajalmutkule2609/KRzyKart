@@ -1,16 +1,13 @@
 package org.techhub.eComWebsite.Configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class PasswordHasher {
+
     private final BCryptPasswordEncoder passwordEncoder;
 
-    @Autowired
     public PasswordHasher(BCryptPasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
@@ -23,4 +20,3 @@ public class PasswordHasher {
         return passwordEncoder.matches(password, hashedPassword);
     }
 }
-

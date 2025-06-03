@@ -1,0 +1,43 @@
+.all-orders-container {
+  padding: 20px;
+  color: black;
+  margin: auto;
+}
+.all-orders-container h2{
+  text-align: center;
+}
+.orders-table {
+  width: 95vw;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.orders-table th, .orders-table td {
+  border: 1px solid #ccc;
+  padding-right: 50px;
+  text-align: center;
+  padding: 20px 0px;
+}
+
+.orders-table th {
+  background-color: #f2f2f2;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+}

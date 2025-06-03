@@ -97,3 +97,6 @@ export const getOrderTotal = async (orderId) => {
   return data;
 };
 
+export const getItemsByProdId = (prodId) => {
+  return axios.get(`${API_URL}/getItemsByProdId/${prodId}`);
+};

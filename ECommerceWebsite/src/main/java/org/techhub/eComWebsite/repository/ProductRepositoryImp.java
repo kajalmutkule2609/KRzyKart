@@ -1,18 +1,19 @@
 package org.techhub.eComWebsite.repository;
 
-import java.sql.PreparedStatement;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.techhub.eComWebsite.Model.ProductModel;
-import org.techhub.eComWebsite.Model.UserContext;
 import org.techhub.eComWebsite.utility.ProductQuery;
 
 @Repository("prodRepo")
@@ -21,21 +22,48 @@ public class ProductRepositoryImp implements ProductRepository {
 	JdbcTemplate jdbcTemplate;
 	List<ProductModel> list;
 
+	private static final String path="C://Users//15s-eq0024au//git//EComWebsite//ECommerceWebsite//src//main//resources//static//Images";
 	@Override
 	public boolean addNewProduct(ProductModel product) {
-		int result=jdbcTemplate.update(ProductQuery.addProduct,  new PreparedStatementSetter() {
-	        @Override
-	        public void setValues(PreparedStatement ps) throws SQLException {
+	    File folder = new File(path);
+	    MultipartFile image = product.getProdImage();
+
+	    if (image == null || image.isEmpty()) {
+	    	
+	        System.out.println("No Image Uploaded");
+	        return false;
+	    }
+
+	    // Create directory if not exists
+	    if (!folder.exists()) {
+	        folder.mkdirs();
+	    }
+
+	    try {
+	        // Save image to static folder
+	        File destFile = new File(folder, image.getOriginalFilename());
+	        image.transferTo(destFile);
+
+	        // Save filename to DB
+	        product.setImageUrl(image.getOriginalFilename());
+
+	        int result = jdbcTemplate.update(ProductQuery.addProduct, ps -> {
 	            ps.setString(1, product.getProdName());
 	            ps.setDouble(2, product.getPrice());
 	            ps.setInt(3, product.getQuantity());
 	            ps.setString(4, product.getDescription());
-	            ps.setString(5, product.getImageUrl());
+	            ps.setString(5, product.getImageUrl());  
 	            ps.setInt(6, product.getCid());
 	            ps.setLong(7, product.getUserId());
-	        }
-	    });
-		return result>0;
+	        });
+
+	        System.out.println("Image saved at: " + destFile.getAbsolutePath());
+	        return result > 0;
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return false;
+	    }
 	}
 
 	@Override
@@ -50,9 +78,12 @@ public class ProductRepositoryImp implements ProductRepository {
 				model.setPrice(rs.getDouble(3));
 				model.setQuantity(rs.getInt(4));
 				model.setDescription(rs.getString(5));
-				model.setImageUrl(rs.getString(6));
+				String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+				model.setImageUrl(baseUrl + "/Images/" + rs.getString(6));
 				model.setCid(rs.getInt(7));
 				model.setUserId(rs.getLong(8));
+				
+			//System.out.println("product data==========="+model.toString());
 				return model;
 			}
 			
@@ -72,7 +103,8 @@ public class ProductRepositoryImp implements ProductRepository {
 				model.setPrice(rs.getDouble(3));
 				model.setQuantity(rs.getInt(4));
 				model.setDescription(rs.getString(5));
-				model.setImageUrl(rs.getString(6));
+				String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+				model.setImageUrl(baseUrl + "/Images/" + rs.getString(6));
 				model.setCid(rs.getInt(7));
 				model.setUserId(rs.getLong(8));
 				return model;
@@ -81,12 +113,48 @@ public class ProductRepositoryImp implements ProductRepository {
 		});
 		return list;
 	}
-
 	@Override
-	public boolean updateProduct(String prodName,ProductModel prod) {
-		int	result=jdbcTemplate.update(ProductQuery.updateProductByName,prod.getProdName(),prod.getPrice(),prod.getQuantity(),prod.getDescription(),prod.getImageUrl(),prodName);
-		return result>0;
+	public boolean updateProduct(String prodName, ProductModel prod, MultipartFile image) {
+	    File folder = new File(path);
+
+	    if (image != null && !image.isEmpty()) {
+	        if (!folder.exists()) {
+	            folder.mkdirs();
+	        }
+
+	        try {
+	            String fileName = Paths.get(image.getOriginalFilename()).getFileName().toString();
+	            File destFile = new File(folder, fileName);
+	            image.transferTo(destFile);
+
+	            
+	            prod.setImageUrl(fileName);
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            return false;
+	        }
+	    } else {
+	        // ✅ If no image uploaded, remove any fakepath prefix from imageUrl
+	        String current = prod.getImageUrl();
+	        if (current != null && current.contains("\\")) {
+	            String cleanFileName = Paths.get(current).getFileName().toString();
+	            prod.setImageUrl(cleanFileName);
+	        }
+	    }
+
+
+	    // Update product details in DB
+	    int result = jdbcTemplate.update(ProductQuery.updateProductByName,
+	            prod.getProdName(),
+	            prod.getPrice(),
+	            prod.getQuantity(),
+	            prod.getDescription(),
+	            prod.getImageUrl(),  
+	            prodName);
+
+	    return result > 0;
 	}
+
 
 	@Override
 	public boolean deleteProduct(String prodName) {
@@ -106,7 +174,8 @@ public class ProductRepositoryImp implements ProductRepository {
 				model.setPrice(rs.getDouble(3));
 				model.setQuantity(rs.getInt(4));
 				model.setDescription(rs.getString(5));
-				model.setImageUrl(rs.getString(6));
+				String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+				model.setImageUrl(baseUrl + "/Images/" + rs.getString(6));
 				model.setCid(rs.getInt(7));
 				model.setUserId(rs.getLong(8));
 				return model;
@@ -127,7 +196,8 @@ public class ProductRepositoryImp implements ProductRepository {
 				model.setPrice(rs.getDouble(3));
 				model.setQuantity(rs.getInt(4));
 				model.setDescription(rs.getString(5));
-				model.setImageUrl(rs.getString(6));
+				String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+				model.setImageUrl(baseUrl + "/Images/" + rs.getString(6));
 				model.setCid(rs.getInt(7));
 				model.setUserId(rs.getLong(8));
 				return model;
@@ -148,7 +218,8 @@ public class ProductRepositoryImp implements ProductRepository {
 				model.setPrice(rs.getDouble(3));
 				model.setQuantity(rs.getInt(4));
 				model.setDescription(rs.getString(5));
-				model.setImageUrl(rs.getString(6));
+				String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+				model.setImageUrl(baseUrl + "/Images/" + rs.getString(6));
 				model.setCid(rs.getInt(7));
 				model.setUserId(rs.getLong(8));
 				return model;
@@ -169,7 +240,8 @@ public class ProductRepositoryImp implements ProductRepository {
 				model.setPrice(rs.getDouble(2));
 				model.setQuantity(rs.getInt(3));
 				model.setDescription(rs.getString(4));
-				model.setImageUrl(rs.getString(5));
+				String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+				model.setImageUrl(baseUrl + "/Images/" + rs.getString(5));
 				model.setCid(rs.getInt(6));
 				model.setUserId(rs.getLong(7));
 				return model;
@@ -232,7 +304,8 @@ public class ProductRepositoryImp implements ProductRepository {
 	                model.setPrice(rs.getDouble(3));
 	                model.setQuantity(rs.getInt(4));
 	                model.setDescription(rs.getString(5));
-	                model.setImageUrl(rs.getString(6));
+	                String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+					model.setImageUrl(baseUrl + "/Images/" + rs.getString(6));
 	                model.setCid(rs.getInt(7));
 	                model.setUserId(rs.getLong(8));
 	                return model;
@@ -257,7 +330,8 @@ public class ProductRepositoryImp implements ProductRepository {
 			                model.setPrice(rs.getDouble(3));
 			                model.setQuantity(rs.getInt(4));
 			                model.setDescription(rs.getString(5));
-			                model.setImageUrl(rs.getString(6));
+			                String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+							model.setImageUrl(baseUrl + "/Images/" + rs.getString(6));
 			                model.setCid(rs.getInt(7));
 			                model.setUserId(rs.getLong(8));
 			                return model;
@@ -280,7 +354,8 @@ public class ProductRepositoryImp implements ProductRepository {
 			                model.setPrice(rs.getDouble(3));
 			                model.setQuantity(rs.getInt(4));
 			                model.setDescription(rs.getString(5));
-			                model.setImageUrl(rs.getString(6));
+			                String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+							model.setImageUrl(baseUrl + "/Images/" + rs.getString(6));
 			                model.setCid(rs.getInt(7));
 			                model.setUserId(rs.getLong(8));
 			                return model;
@@ -303,13 +378,66 @@ public class ProductRepositoryImp implements ProductRepository {
 		                model.setPrice(rs.getDouble(3));
 		                model.setQuantity(rs.getInt(4));
 		                model.setDescription(rs.getString(5));
-		                model.setImageUrl(rs.getString(6));
+		                String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+						model.setImageUrl(baseUrl + "/Images/" + rs.getString(6));
 		                model.setCid(rs.getInt(7));
 		                model.setUserId(rs.getLong(8));
 		                return model;
 		            }
 		        }
 		    );
+	}
+
+	@Override
+	public List<ProductModel> getAllProductsByPriceRange(int range1, int range2) {
+		return jdbcTemplate.query(
+		        ProductQuery.getAllProductsByPriceRange,
+		        new Object[] { range1,range2}, 
+		        new RowMapper<ProductModel>() {
+		            @Override
+		            public ProductModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+		                ProductModel model = new ProductModel();
+		                model.setProdId(rs.getInt(1));
+		                model.setProdName(rs.getString(2));
+		                model.setPrice(rs.getDouble(3));
+		                model.setQuantity(rs.getInt(4));
+		                model.setDescription(rs.getString(5));
+		                String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+						model.setImageUrl(baseUrl + "/Images/" + rs.getString(6));
+		                model.setCid(rs.getInt(7));
+		                model.setUserId(rs.getLong(8));
+		                return model;
+		            }
+		        }
+		    );
+	}
+
+	@Override
+	public List<ProductModel> searchProductByDescPattern(String desc) {
+		 String likePattern = "%" + desc + "%";
+
+		    List<ProductModel> list = jdbcTemplate.query(
+		        ProductQuery.getProductByDescPattern,
+		        new Object[] { likePattern },
+		        new RowMapper<ProductModel>() {
+		            @Override
+		            public ProductModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+		                ProductModel model = new ProductModel();
+		                model.setProdId(rs.getInt(1));
+		                model.setProdName(rs.getString(2));
+		                model.setPrice(rs.getDouble(3));
+		                model.setQuantity(rs.getInt(4));
+		                model.setDescription(rs.getString(5));
+		                String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+						model.setImageUrl(baseUrl + "/Images/" + rs.getString(6));
+		                model.setCid(rs.getInt(7));
+		                model.setUserId(rs.getLong(8));
+		                return model;
+		            }
+		        }
+		    );
+
+		    return list;
 	}
 
 

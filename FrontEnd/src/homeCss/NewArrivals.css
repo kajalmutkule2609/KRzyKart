@@ -3,12 +3,42 @@
   background-color: #f6f6f6;
   text-align: center;
 }
-
 .new-arrivals1 h2 {
   font-size: 28px;
   font-weight: bold;
   margin-bottom: 30px;
+  background: linear-gradient(to bottom, #1CB5E0, #000046);
+  background-size: 200% 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s ease-in-out infinite, blink 1.5s infinite;
 }
+
+/* Shimmering movement */
+@keyframes shimmer {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+/* Subtle blinking effect */
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
 
 .arrivals-grid1 {
   display: grid;

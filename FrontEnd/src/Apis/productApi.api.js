@@ -3,14 +3,12 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:8080/ECommerceWebsite/Product';
 
-const addProduct = async (productData) => {
-  try {
-    const response = await axios.post(`${API_URL}/addProduct`, productData); 
-    return response;
-  } catch (error) {
-    console.error("Error adding product:", error);
-    throw error;
-  }
+const addProduct = (formData) => {
+  return axios.post(`${API_URL}/addProduct`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
 };
 
  
@@ -112,23 +110,27 @@ const getProductsByProductName = async (productName) => {
     }
   };
   
-  
-  // Update product
-  const updateProduct = async (productName, product) => {
-    try {
-      const response = await fetch(`${API_URL}/updateProduct/${productName}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(product),
-      });
-      const data = await response.text();
-      console.log(data);
-    } catch (error) {
-      console.error(error);
+ const updateProduct = async (productName, product, imageFile) => {
+  try {
+    const formData = new FormData();
+    formData.append("product", new Blob([JSON.stringify(product)], { type: "application/json" }));
+    
+    if (imageFile) {
+      formData.append("image", imageFile);
     }
-  };
+
+    const response = await fetch(`${API_URL}/updateProduct/${encodeURIComponent(productName)}`, {
+      method: "PUT",
+      body: formData,
+    });
+
+    const data = await response.text();
+    console.log(data);
+  } catch (error) {
+    console.error("Error updating product:", error);
+  }
+};
+
   const getProdIdByName = async (prodName) => {
     try {
       const response = await axios.get(`${API_URL}/getProdIdByName/${prodName}`);
@@ -159,6 +161,17 @@ const getProductsByProductName = async (productName) => {
     }
   };
 
+  const getProductsByDescPattern = async (desc) => {
+    try {
+      const response = await fetch(`${API_URL}/getProductsByDescPattern/${desc}`);
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.error(error);
+      return []; 
+    }
+  };
  const sortProductsByPriceLowToHighByCategory = async (categoryName) => {
   try {
     const response = await fetch(`${API_URL}/sortProductByPriceLowToHighByCategory/${categoryName}`);
@@ -196,6 +209,20 @@ const getProductsByPriceRange = async (min, max, category) => {
     return [];
   }
 };
+const getAllProductsByPriceRange = async (min, max) => {
+  try {
+    const response = await axios.get(`${API_URL}/filterAllByPriceRange`, {
+      params: {
+        min: min,
+        max: max
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching products by price range:", error);
+    return [];
+  }
+};
 export {
   addProduct,
   getProductsBySellerId,
@@ -211,5 +238,7 @@ export {
   getProductsByNamePattern,
   sortProductsByPriceLowToHighByCategory,
   sortProductsByPriceHighToLowByCategory,
-  getProductsByPriceRange
+  getProductsByPriceRange,
+  getAllProductsByPriceRange,
+  getProductsByDescPattern
 };

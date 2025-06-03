@@ -7,11 +7,11 @@ const categories = [
   { name: "Mobiles", image: "src/assets/categoryimg/mobile.png" },
   { name: "Fashion", image: "src/assets/categoryimg/fashion.png" },
   { name: "Electronics", image: "src/assets/categoryimg/electronics.png" },
-  { name: "Home & Furniture", image: "src/assets/categoryimg/Furniture.png" },
+  { name: "Furniture", image: "src/assets/categoryimg/Furniture.png" },
   { name: "Appliances", image: "src/assets/categoryimg/appliences.png" },
   { name: "Grocery", image: "src/assets/categoryimg/mobile.png" },
   { name: "Beauty", image: "src/assets/categoryimg/beauty.png" },
-  { name: "Toys & More", image: "src/assets/categoryimg/appliences.png" }
+  { name: "Toys", image: "src/assets/categoryimg/appliences.png" }
 ];
 
 const CategoryBar = () => {

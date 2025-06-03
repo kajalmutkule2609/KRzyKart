@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { sendReceipt } from "../Apis/emailApi.api";
 import {
   getShippingByOrderId,
 } from "../Apis/shippingApi.api";
@@ -71,6 +72,47 @@ const ShippingPage = () => {
 
     fetchData();
   }, []);
+  
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  const userEmail = userData?.email;
+   console.log("Email:",userEmail);
+const handleSendEmail = async () => {
+  if (!userEmail) {
+    alert("User email not found in localStorage.");
+    return;
+  }
+
+  const emailData = {
+    to: userEmail,
+    subject: `Your Order Receipt - Order #${orderId}`,
+    body: `
+Thank you for shopping with KRzyKart!
+
+Order ID: ${orderDetails.orderId}
+Total Amount: ₹${paymentDetails.amount}
+Payment Method: ${paymentDetails.paymentMethod}
+Payment Date: ${paymentDetails.paymentDate}
+
+Shipping Date: ${shippingDetails.shippingDate}
+Estimated Delivery: ${shippingDetails.estimatedDeliveryDate}
+
+Items:
+${orderItems.map(item => `• ${item.productName} x${item.quantity} - ₹${item.price}`).join("\n")}
+
+
+
+We hope to see you again soon!
+      `
+  };
+
+  try {
+    await sendReceipt(emailData);
+    alert("Receipt sent successfully to your email!");
+  } catch (error) {
+    console.error("Failed to send email:", error);
+    alert("Error sending receipt. Please try again.");
+  }
+};
 
   return (
     <div className="shipping-page">
@@ -147,6 +189,16 @@ const ShippingPage = () => {
           </table>
         </div>
       )}
+      {/* {orderDetails && shippingAddress && paymentDetails && orderItems.length > 0 && ( */}
+  <div className="section">
+    <button className="sendEmail"
+      onClick={handleSendEmail}
+    >
+      Send Receipt to Email
+    </button>
+  </div>
+{/* )} */}
+
     </div>
   );
 };

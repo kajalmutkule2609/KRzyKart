@@ -52,3 +52,7 @@ export const removeFromCart = (cartId) => {
 export const removeFromCartBypId = (pId) => {
   return axios.delete(`${API_URL}/removeFromCartByPid/${pId}`);
 };
+
+export const removeFromCartByUserId = (userId) => {
+  return axios.delete(`${API_URL}/removeFromCartByUserId/${userId}`);
+};

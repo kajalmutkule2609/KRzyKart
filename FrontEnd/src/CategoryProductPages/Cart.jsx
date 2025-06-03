@@ -38,7 +38,9 @@ const Cart = () => {
             <tr key={product.id}>
               <td>{product.prodName}</td>
               <td>
-                <img src={product.image} alt={product.prodName} style={{ width: '120px', height: '90px' }} />
+                <img
+              src={`http://localhost:8080/Images/${product.image}`}
+              alt={product.prodName} style={{ maxWidth: '120px', height: '90px' }} />
               </td>
               <td>
                 <button className="btn" onClick={() => decrementQuantity(product.id)}>-</button>

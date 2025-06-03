@@ -22,7 +22,7 @@ const Footer = () => {
           <div className="social-icons">
             <FaFacebookF />
             <FaInstagram />
-            <FaGithub />
+            <FaGithub/>
           </div>
         </div>
 

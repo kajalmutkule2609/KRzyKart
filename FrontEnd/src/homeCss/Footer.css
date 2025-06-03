@@ -6,8 +6,8 @@
 
 /* Newsletter Section */
 .footer-newsletter {
-  background-color: black;
-  color: white;
+  background-color: rgb(152, 147, 147);
+  color: black;
   padding: 20px;
   text-align: center;
   border-radius: 12px;
@@ -30,13 +30,13 @@
   align-items: center;
   background: white;
   padding: 12px;
-  border-radius: 30px;
+  border-radius: 15px;
   margin: 0 auto;
   width: 400px;
-  -webkit-border-radius:;
-  -moz-border-radius:;
-  -ms-border-radius:;
-  -o-border-radius:;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
 }
 
 .newsletter-input .icon {
@@ -53,18 +53,20 @@
 }
 
 .subscribe-btn {
-  background-color: white;
-  color: black;
+ background: #5c6b3d;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #141517, #d5eca7);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #141517, #d3ea9f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   padding: 12px 20px;
-  border-radius: 30px;
+  border-radius: 15px;
+  color: black;
   font-weight: bold;
   cursor: pointer;
   margin-top: 10px;
   border: none;
-  -webkit-border-radius: 30px;
-  -moz-border-radius: 30px;
-  -ms-border-radius: 30px;
-  -o-border-radius: 30px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
 }
 
 .subscribe-btn:hover {

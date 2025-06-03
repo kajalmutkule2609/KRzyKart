@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.techhub.eComWebsite.Model.ProductModel;
 import org.techhub.eComWebsite.repository.ProductRepositoryImp;
 
@@ -28,8 +29,8 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public boolean updateProduct(String prodName,ProductModel prod) {
-		return prodRepo.updateProduct(prodName,prod);
+	public boolean updateProduct(String prodName, ProductModel prod, MultipartFile image) {
+		return prodRepo.updateProduct(prodName,prod,image);
 	}
 
 	@Override
@@ -85,5 +86,15 @@ public class ProductServiceImp implements ProductService {
 	@Override
 	public List<ProductModel> getProductsByPriceRange(int range1, int range2, String category) {
 		return prodRepo.getProductsByPriceRange(range1, range2, category);
+	}
+
+	@Override
+	public List<ProductModel> getAllProductsByPriceRange(int range1, int range2) {
+		return prodRepo.getAllProductsByPriceRange(range1, range2);
+	}
+
+	@Override
+	public List<ProductModel> searchProductByDescPattern(String desc) {
+		return prodRepo.searchProductByDescPattern(desc);
 	}
 }

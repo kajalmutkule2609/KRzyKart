@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import './AdminDashboard.css';
 import { useNavigate } from 'react-router-dom';
-import {
-  FaPlus, FaSearch, FaEdit, FaClipboardList, FaTag, FaTrashAlt
-} from "react-icons/fa";
+import { FaPlus, FaSearch, FaEdit,FaMapMarkerAlt, FaClipboardList,FaIdBadge, FaTag, FaTrashAlt,FaUser,FaEnvelope } from "react-icons/fa";
 import SecureCategoryActionPopup from '/src/assets/SellerDashboard/SecureCategoryActionPopup';
 import CategoryPopup from '/src/assets/SellerDashboard/CategoryPopup';
 
@@ -16,6 +14,7 @@ const AdminDashboard = () => {
   const handleUpdateAccount = () => {
     navigate("/update-user", { state: { userData: adminData } });
   };
+
 
   const handleDeleteAccount = () => {
     navigate("/delete-account");
@@ -37,9 +36,7 @@ const AdminDashboard = () => {
     setShowPopup(false);
   };
 
-  const handleDisplayCategory = () => {
-    navigate("/admin-dashboard/display-categories");
-  };
+ const handleDisplayCategory=()=> navigate("/admin-dashboard/show-category");
 
   const handleUpdateCategory = () => {
     setSecureActionType('update');
@@ -48,59 +45,54 @@ const AdminDashboard = () => {
   const handleDeleteCategory = () => {
     setSecureActionType('delete');
   };
+  const handleAllOrders = () => {
+  navigate("/admin-dashboard/all-orders");
+};
+
 
   return (
     <div className="admin-dashboard">
-      <div className="left-panel">
-        <h2>Account Information</h2>
-        <p><span className='lables'>Name:</span>{adminData.fullName}</p>
-        <p><span className='lables'>Email:</span>{adminData.email}</p>
-        <p><span className='lables'>Contact:</span>{adminData.contactNo}</p>
-        <p><span className='lables'>Address:</span>{adminData.address}</p>
-        <div className='UpdateDelete'>
-          <a className="text-dark" onClick={handleUpdateAccount}>Update Account</a>
-          <a className="text-dark" onClick={handleDeleteAccount}>Delete Account</a>
-        </div>
-      </div>
-
- <div className="categories-panel">
-        <h2 className='cat'>Manage Categories</h2>
-        <div className="button-grid">
-          <button onClick={handleAddCategory}>
-            <FaTag size={20} /> Add Category
-          </button>
-          <button onClick={handleDisplayCategory}>
-            <FaClipboardList size={20} /> Display Categories
-          </button>
-          <button onClick={handleUpdateCategory}>
-            <FaEdit size={20} /> Update Category
-          </button>
-          <button onClick={handleDeleteCategory}>
-            <FaTrashAlt size={20} /> Delete Category
-          </button>
-        </div>
-      </div>
-
-      <div className="right-panel">
-        <h2>Manage Products</h2>
-        <div className="button-grid">
-          <button onClick={handleDisplayProduct}>
-            <FaClipboardList size={20} /> Display Products
-          </button>
-          <button onClick={handleSearchProduct}>
-            <FaSearch size={20} /> Search Product
-          </button>
-        </div>
-      </div>
-
-      {showPopup && <CategoryPopup onClose={closePopup} />}
-      {secureActionType && (
-        <SecureCategoryActionPopup
-          actionType={secureActionType}
-          onClose={() => setSecureActionType(null)}
-        />
-      )}
+      <div className="profile-section">
+    <h2>Account Details</h2>
+    <FaUser className="user-icon" />
+    <p className="admin-name">{adminData.fullName}</p>
+    <p className='det'><FaEnvelope /> {adminData.email}</p>
+    <p className='det'><FaIdBadge /> {adminData.contactNo}</p>
+    <p className='det'><FaMapMarkerAlt /> {adminData.address}</p>
+    <div className="account-actions">
+      <button onClick={handleUpdateAccount}>Update Profile</button>
+      <button onClick={handleDeleteAccount}>Delete Account</button>
     </div>
+  </div>
+
+<div>
+  {/* Product Section */}
+  <div className="section-box">
+    <h2>Manage Products</h2>
+    <div className="button-grid">
+      <button onClick={handleAllOrders}><FaClipboardList /> View All Orders</button>
+      <button onClick={handleDisplayProduct}><FaClipboardList /> Display Product</button>
+      <button onClick={handleSearchProduct}><FaSearch /> Search Product</button>
+    </div>
+  </div>
+
+  {/* Category Section */}
+  <div className="section-box">
+    <h2>Manage Categories</h2>
+    <div className="button-grid">
+      <button onClick={handleAddCategory}><FaPlus /> Add Category</button>
+      <button onClick={handleDisplayCategory}><FaClipboardList /> Display Categories</button>
+      <button onClick={handleUpdateCategory}><FaEdit /> Update Category</button>
+      <button onClick={handleDeleteCategory}><FaTrashAlt /> Delete Category</button>
+    </div>
+  </div>
+</div>
+  {/* Popups */}
+  {showPopup && <CategoryPopup onClose={closePopup} />}
+  {secureActionType && (
+    <SecureCategoryActionPopup actionType={secureActionType} onClose={() => setSecureActionType(null)} />
+  )}
+</div>
   );
 };
 

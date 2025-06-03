@@ -68,7 +68,7 @@ const SignUpForSeller = () => {
           navigate("/login");
         }, 2000);
       } catch (error) {
-        setRegistrationStatus("Registration Failed!");
+        setRegistrationStatus("Registration Failed! User Already Registered with this email");
         setSuccess("");
         setErrors({});
       }
@@ -154,7 +154,7 @@ const SignUpForSeller = () => {
               value={securityCode}
               onChange={handleSecurityCodeChange}
             />
-            <button type="button" onClick={handleVerifySecurityCode}>
+            <button type="button" className="sCodeBtn" onClick={handleVerifySecurityCode}>
               Verify Security Code
             </button>
             {securityCodeVerified && (

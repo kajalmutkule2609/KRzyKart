@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Pages/ResetPassword.css"; // Import CSS file
-import { generateOtp, verifyOtp, forgotPassword } from "../Apis/userApi.api"; // Import the API
+import { generateOtp, verifyOtp, forgotPassword,getUserByEmail } from "../Apis/userApi.api"; // Import the API
 
 const ResetPassword = () => {
     const navigate = useNavigate();
@@ -37,8 +37,12 @@ const ResetPassword = () => {
         if (!email) {
             setError("Please enter your email ");
             return;
-        }
-        try {
+        } 
+       try{
+ const response = await getUserByEmail(email);
+        if(response.data){
+            console.log("User is:",response.data);
+             try {
             const response = await generateOtp({ email });
             setOtpSent(true);
             setSuccess("OTP sent to your email.");
@@ -47,6 +51,17 @@ const ResetPassword = () => {
             setError("Error sending OTP. Please try again.");
             setSuccess("");
         }
+        }
+        else{
+            console.log("Invalid Mail");
+            setError("No user Registered With Entered mail id");
+        }
+       }
+       catch(error){
+ console.log("Invalid Mail");
+            setError("No user Registered With Entered mail id");
+       }
+       
     };
 
     const handleVerifyOtp = async (e) => {

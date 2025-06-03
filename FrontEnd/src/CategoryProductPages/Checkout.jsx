@@ -1,17 +1,22 @@
-import React, { useContext, useEffect, useState } from "react";
-import { CartContext } from "./CartContext";
-import { createOrder, addOrderItem } from "../Apis/orderApi.api"; 
-import { getProdIdByName } from "../Apis/productApi.api";
-import { useNavigate } from "react-router-dom"; 
-import "./Checkout.css";
+import { useContext } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { CartContext } from './CartContext';
+import { createOrder, addOrderItem } from '../Apis/orderApi.api';
+import { getProdIdByName } from '../Apis/productApi.api';
+import './Checkout.css';
 
 const Checkout = () => {
   const { cart, clearCart } = useContext(CartContext);
   const [subtotal, setSubtotal] = useState(0);
-  const [orderPlaced, setOrderPlaced] = useState(false); 
+  const [deliveryCharges, setDeliveryCharges] = useState(50);
+  const [discount, setDiscount] = useState(0);
+  const [finalTotal, setFinalTotal] = useState(0);
+  const [orderPlaced, setOrderPlaced] = useState(false);
+  const [isPlacingOrder, setIsPlacingOrder] = useState(false);
   const userData = JSON.parse(localStorage.getItem("userData"));
   const userId = userData?.userId;
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     let total = 0;
@@ -19,49 +24,69 @@ const Checkout = () => {
       total += item.price * item.quantity;
     });
     setSubtotal(total);
+
+
+    let delivery = 50;
+    let disc = 0;
+
+    if (total > 500 && total <= 1000) {
+      delivery = 0;
+    } else if (total > 1000 && total <= 1500) {
+      delivery = 0;
+      disc = 0.05 * total;
+    } else if (total > 1500 && total <= 2500) {
+      delivery = 0;
+      disc = 0.10 * total;
+    } else if (total > 2500) {
+      delivery = 0;
+      disc = 0.20 * total;
+    }
+
+    setDeliveryCharges(delivery);
+    setDiscount(disc);
+    setFinalTotal(total - disc + delivery);
   }, [cart]);
 
   const handlePlaceOrder = async () => {
-  const status = "Pending";
-  const total = subtotal + 50;
+    setIsPlacingOrder(true);
+    const status = "Pending";
 
-  try {
-    const orderResponse = await createOrder(userId, total, status);
-    const orderId = orderResponse.orderId || orderResponse.data?.orderId;
+    try {
+      const orderResponse = await createOrder(userId, finalTotal, status);
+      const orderId = orderResponse.orderId || orderResponse.data?.orderId;
 
-    if (!orderId) throw new Error("Order ID not returned from server");
+      if (!orderId) throw new Error("Order ID not returned from server");
 
+      localStorage.setItem("currentOrderId", orderId);
 
-    localStorage.setItem("currentOrderId", orderId);
+      for (const item of cart) {
+        let pid = item.pid;
 
-    for (const item of cart) {
-      let pid = item.pid;
-
-      if (!pid && item.prodName) {
-        pid = await getProdIdByName(item.prodName);
-        if (pid === -1) {
-          console.warn(`Skipping item: ${item.prodName}, Product ID not found`);
-          continue;
+        if (!pid && item.prodName) {
+          pid = await getProdIdByName(item.prodName);
+          if (pid === -1) {
+            console.warn(`Skipping item: ${item.prodName}, Product ID not found`);
+            continue;
+          }
         }
+
+        await addOrderItem(orderId, pid, item.quantity, item.price);
       }
 
-      console.log("Pid:", pid);
-      await addOrderItem(orderId, pid, item.quantity, item.price);
-      console.log("Adding Order Item ->", {
-        orderId,
-        pid,
-        quantity: item.quantity,
-        price: item.price,
-      });
+      alert("Order Confirmed successfully!");
+      setOrderPlaced(true);
+    } catch (error) {
+      console.error("Order placement failed:", error);
+      alert("Failed to place order.");
+      setIsPlacingOrder(false);
     }
+  };
 
-    alert("Order Confirmed successfully!");
-    // clearCart(); // Uncomment this if you want to clear cart after order
-    setOrderPlaced(true);
-  } catch (error) {
-    console.error("Order placement failed:", error);
-    alert("Failed to place order.");
-  }
+  const getDiscountPercentage = () => {
+  if (subtotal > 1000 && subtotal <= 1500) return 5;
+  if (subtotal > 1500 && subtotal <= 2500) return 10;
+  if (subtotal > 2500) return 20;
+  return 0;
 };
 
   const handleAddAddressClick = () => {
@@ -91,22 +116,37 @@ const Checkout = () => {
       <div className="checkout-summary">
         <div className="summary-item">
           <span>Total:</span>
-          <span>₹{subtotal}</span>
+          <span>₹{subtotal.toFixed(2)}</span>
         </div>
         <div className="summary-item">
           <span>Delivery Charges:</span>
-          <span>₹50</span>
+          <span>₹{deliveryCharges.toFixed(2)}</span>
         </div>
         <div className="summary-item">
-          <span>Final Total:</span>
-          <span>₹{subtotal + 50}</span>
+          <span>Discount:</span>
+          <span>
+            - ₹{discount.toFixed(2)}{" "}
+            <span style={{ color: "green", fontWeight: "bold" }}>
+              ({getDiscountPercentage()}% off)
+            </span>
+          </span>
         </div>
-        <button className="checkout-btn" onClick={handlePlaceOrder}>
-          Confirm your order
+
+        <div className="summary-item">
+          <strong>Final Total:</strong>
+          <strong>₹{finalTotal.toFixed(2)}</strong>
+        </div>
+
+        <button
+          className="checkout-btn"
+          onClick={handlePlaceOrder}
+          disabled={isPlacingOrder || orderPlaced}
+        >
+          {isPlacingOrder ? "Placing Order..." : "Confirm your order"}
         </button>
+
       </div>
 
-      {/* Show this only after order is placed */}
       {orderPlaced && (
         <div className="order-success">
           <h3>🎉 Order Confirmed!</h3>

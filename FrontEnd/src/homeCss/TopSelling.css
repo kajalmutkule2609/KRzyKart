@@ -25,7 +25,11 @@
     border-radius: 8px;
     text-align: center;
     color: black;
-  }
+    -webkit-border-radius:;
+    -moz-border-radius:;
+    -ms-border-radius:;
+    -o-border-radius:;
+}
   
   .product-images {
     margin: 6%;

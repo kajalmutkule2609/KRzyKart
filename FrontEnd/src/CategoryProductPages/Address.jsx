@@ -80,12 +80,12 @@ const Address = () => {
 
   return (
     <div className="address-container">
-      <h1>Manage Addresses</h1>
+      <h1 className="add">Manage Address</h1>
   
       <div className="address-section">
         {/* LEFT: Address List */}
         <div className="address-list-container">
-          <h2>Your Addresses</h2>
+          <h2 className="existing-address">Your Addresses</h2>
           {addresses.length > 0 ? (
             <ul className="address-list">
               {addresses.map((address) => (
@@ -114,7 +114,11 @@ const Address = () => {
             </ul>
           ) : (
             <p>No addresses found.</p>
-          )}
+          ) }
+           {/* Bottom button */}
+      <button className="proceed-btn" onClick={handleProceedToPayment}>
+        Proceed to Payment
+      </button>
         </div>
   
         {/* RIGHT: Form */}
@@ -180,11 +184,6 @@ const Address = () => {
           </form>
         </div>
       </div>
-  
-      {/* Bottom button */}
-      <button className="proceed-btn" onClick={handleProceedToPayment}>
-        Proceed to Payment
-      </button>
     </div>
   );
 };
